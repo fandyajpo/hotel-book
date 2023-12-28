@@ -120,7 +120,6 @@ const LocationTable = () => {
         total={Number(data?.data?.total)}
         currentPage={Number(get("page"))}
         limit={10}
-        updatePage={(d) => push(`/bo/location?page=${d}`)}
       />
     </div>
   );

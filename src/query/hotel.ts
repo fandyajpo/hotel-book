@@ -19,11 +19,13 @@ export const listHotel = async (page: number, limit: number) => {
           LIMIT ${page}, ${limit}
         RETURN MERGE(p, { category: FIRST(cat) })
       )
+
       LET total = (
         FOR p IN @@coll
           COLLECT WITH COUNT INTO length
         return length
       )
+
       RETURN { total, data }`,
       bindVars: { "@coll": "hotel" },
     });
@@ -66,31 +68,48 @@ export const hotelById = async (key: string) => {
   }
 };
 
-export const hotelByLocation = async (location: string) => {
+export const hotelByLocation = async (
+  page: number,
+  limit: number,
+  location: string
+) => {
   const db = cacheConnection();
   try {
+    const rPage = Number(page) - 1;
+
     await getCollection("hotel", db);
     const resx = await db.query({
-      query: `FOR u IN @@coll
-
-      FILTER u.location == @loc
-
+      query: `
+          LET data = (
+            FOR u IN @@coll
+            FILTER u.location == @loc
             LET category = (
               FOR c IN category
                 FILTER c._key == u.category
                 RETURN  c 
             )
             LET location = (
-              FOR c IN location
-                FILTER c._key == u.location
-                RETURN  c 
+              FOR a IN location
+                FILTER a._key == u.location
+                RETURN  a 
             )
-    
-      RETURN MERGE(u, { category: FIRST(category), location: FIRST(location) })`,
+
+            LIMIT ${rPage * Number(limit)}, ${Number(limit)}
+            RETURN MERGE(u, { category: FIRST(category), location: FIRST(location) })
+          )
+            
+          LET total = (
+              FOR p IN @@coll
+                FILTER p.location == @loc
+                COLLECT WITH COUNT INTO length
+              return length
+          )
+
+          RETURN { total, data }`,
       bindVars: { "@coll": "hotel", loc: location },
     });
     const result = await resx.all();
-    return result;
+    return result[0];
   } catch (error) {
     throw error;
   } finally {

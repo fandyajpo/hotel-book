@@ -6,8 +6,7 @@ const getConnection = () => {
   try {
     const conn = new Database({
       loadBalancingStrategy: "ONE_RANDOM",
-
-      url: process.env.ARANGO_ENPOINT!,
+      url: process.env.ARANGO_ENPOINT,
       databaseName: process.env.ARANGO_DATABASE!,
       auth: {
         username: process.env.ARANGO_USERNAME!,

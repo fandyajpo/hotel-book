@@ -5,7 +5,7 @@ import { CategoryT } from "@/types";
 import CategoryForm from "@/components/Backoffice/Category/Form";
 import { useQuery } from "@tanstack/react-query";
 import { client } from "@/lib/axios";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Paging from "@/components/Layout/Pagination";
 import Header from "../Header";
 import SearchForm from "./SearchForm";
@@ -15,7 +15,7 @@ import { auth } from "@/lib/Firebase";
 const CategoryTable = () => {
   const { get } = useSearchParams();
   const deferQuery = useDeferredValue(get("q"));
-  const { push } = useRouter();
+
   const action = (data: CategoryT) => {
     documentById(data?._key as string)?.showModal?.();
   };
@@ -127,7 +127,6 @@ const CategoryTable = () => {
         total={Number(data?.data?.total)}
         currentPage={Number(get("page"))}
         limit={10}
-        updatePage={(d) => push(`/bo/category?page=${d}`)}
       />
     </div>
   );

@@ -15,15 +15,19 @@ const HotelSlug = async (
     };
   }>
 ) => {
-  const location: LocationT = await locationBySlug(props.params.slug);
+  const location: LocationT = await locationBySlug?.(props?.params?.slug);
 
   return (
     <>
       <Banner location={location} />
+
       <div className="flex justify-center pb-44 ">
         <Layer isMiddle>
           <Suspense fallback={<Loading />}>
-            <RoomList location={location} />
+            <RoomList
+              location={location}
+              page={Number(props?.searchParams?.page)}
+            />
           </Suspense>
         </Layer>
       </div>

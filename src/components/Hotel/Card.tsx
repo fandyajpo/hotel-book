@@ -1,11 +1,15 @@
 "use client";
 import { HotelT } from "@/types";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import ImageLoader from "../Layout/ImageLoader";
 interface Props {
   hotel: HotelT;
 }
 
 const HotelCard = (props: Props) => {
+  const { get } = useSearchParams();
+
   return (
     <div className="flex bg-white w-full transition hover:shadow border">
       <div className="rotate-180 p-2 [writing-mode:_vertical-lr]">
@@ -18,7 +22,7 @@ const HotelCard = (props: Props) => {
 
       <div className="w-full basis-44">
         <div className="aspect-square h-full w-full object-cover">
-          <ImageLoader imageSource={props.hotel.image?.[0] as any} />
+          <ImageLoader imageSource={props?.hotel?.image?.[0] as any} />
         </div>
       </div>
 
@@ -26,7 +30,7 @@ const HotelCard = (props: Props) => {
         <div className="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
           <a href="#">
             <h3 className="font-bold uppercase text-gray-900">
-              {props.hotel.name}
+              {props?.hotel?.name}
             </h3>
           </a>
 
@@ -80,12 +84,16 @@ const HotelCard = (props: Props) => {
         </div>
 
         <div className="sm:flex sm:items-end sm:justify-end">
-          <a
-            href="#"
+          <Link
+            href={`/hotel/${[props?.hotel?.slug]}?config${
+              !get("checkin") ? "" : "&checkin=" + get("checkin")
+            }${!get("checkout") ? "" : "&checkout=" + get("checkout")}${
+              !get("guest") ? "" : "&guest=" + get("guest")
+            }`}
             className="block bg-yellow-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-yellow-400"
           >
             Review
-          </a>
+          </Link>
         </div>
       </div>
     </div>

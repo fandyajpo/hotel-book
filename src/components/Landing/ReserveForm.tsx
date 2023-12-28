@@ -21,7 +21,7 @@ const ReserveForm = () => {
 
   const onSubmit = handleSubmit((data: ReserveFormT) => {
     return push(
-      `/location/${data.location.value}?checkin=${data.checkIn}&checkout=${data.checkOut}&guest=${data.guest}`
+      `/location/${data.location.value}?checkin=${data.checkIn}&checkout=${data.checkOut}&guest=${data.guest}&page=1`
     );
   });
 
@@ -148,7 +148,7 @@ const ReserveForm = () => {
         <div />
         <button
           type="submit"
-          className="col-span-2 bg-blue-500 text-white border border-white rounded py-2"
+          className="col-span-2 bg-green-500 text-white border border-white rounded-full py-2"
         >
           Find out!
         </button>
