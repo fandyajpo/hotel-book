@@ -68,6 +68,36 @@ export const hotelById = async (key: string) => {
   }
 };
 
+export const hotelBySlug = async (slug: string) => {
+  const db = cacheConnection();
+  try {
+    await getCollection("hotel", db);
+    const resx = await db.query({
+      query: `FOR u IN @@coll
+      FILTER u.slug == @slug
+            LET category = (
+              FOR c IN category
+                FILTER c._key == u.category
+                RETURN  c 
+            )
+            LET location = (
+              FOR c IN location
+                FILTER c._key == u.location
+                RETURN  c 
+            )
+       
+      RETURN MERGE(u, { category: FIRST(category), location: FIRST(location) })`,
+      bindVars: { "@coll": "hotel", slug },
+    });
+    const result = await resx.all();
+    return result?.[0];
+  } catch (error) {
+    throw error;
+  } finally {
+    db.close();
+  }
+};
+
 export const hotelByLocation = async (
   page: number,
   limit: number,

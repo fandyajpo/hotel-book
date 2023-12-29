@@ -1,7 +1,7 @@
 import { LocationT } from "@/types";
 
 interface Props {
-  location: LocationT;
+  text: string;
 }
 
 const Banner = (props: Props) => {
@@ -13,7 +13,7 @@ const Banner = (props: Props) => {
             Discover the best.
             <strong className="font-extrabold text-blue-700 sm:block">
               {" "}
-              hotels in {props.location.name}.
+              {props.text}.
             </strong>
           </h1>
 

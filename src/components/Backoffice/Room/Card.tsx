@@ -1,6 +1,7 @@
 import { Bath, Bed, Price } from "@/components/Icons";
 import { RoomT } from "@/types";
 import Link from "next/link";
+import ImageLoader from "@/components/Layout/ImageLoader";
 
 interface Props {
   data: RoomT;
@@ -8,42 +9,88 @@ interface Props {
 
 const RoomCard = (props: Props) => {
   return (
-    <tr key={props?.data?._key} className="border">
-      <td className="border py-2 px-4">{props?.data?.name}</td>
-      <td className="border py-2 px-4 flex">
-        <div className="flex flex-col gap-2 items-center">
-          <Bath className="w-6 h-6" />
-          {props?.data?.bath}
+    <div className="flex bg-white w-full transition hover:shadow border">
+      <div className="rotate-180 p-2 [writing-mode:_vertical-lr]">
+        <div className="flex items-center justify-between gap-4 text-xs font-bold uppercase text-gray-900">
+          <span>-</span>
+          <span className="w-px flex-1 bg-gray-900/10"></span>
+          <span>-</span>
         </div>
-        <div className="flex flex-col gap-2 items-center">
-          <Bed className="w-6 h-6" />
-          {props?.data?.bed}
+      </div>
+
+      <div className="w-full basis-44">
+        <div className="aspect-square h-full w-full object-cover">
+          <ImageLoader imageSource={""} />
         </div>
-        <div className="flex flex-col gap-2 items-center">
-          <Price className="w-6 h-6" />
-          {props?.data?.price}
+      </div>
+
+      <div className="flex flex-1 flex-col justify-between">
+        <div className="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
+          <a href="#">
+            <h3 className="font-bold uppercase text-gray-900">
+              {props?.data.name}
+            </h3>
+          </a>
+
+          <div className="mt-6 flex items-center gap-8 text-xs">
+            <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
+              <svg
+                className="h-4 w-4 text-indigo-700"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                />
+              </svg>
+
+              <div className="mt-1.5 sm:mt-0">
+                <p className="text-gray-500">Bathroom</p>
+
+                <p className="font-medium">{props.data.bath}</p>
+              </div>
+            </div>
+
+            <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
+              <svg
+                className="h-4 w-4 text-indigo-700"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                />
+              </svg>
+
+              <div className="mt-1.5 sm:mt-0">
+                <p className="text-gray-500">Bedroom</p>
+
+                <p className="font-medium">{props.data.bed}</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </td>
-      <td className="border">
-        <Link
-          className="text-blue-500 p-2"
-          href={`/bo/room/${props?.data?._key}`}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-6 h-6"
+
+        <div className="sm:flex sm:items-end sm:justify-end">
+          <Link
+            href={`/bo/hotel/${props.data?.hotel?._key}/room/${props.data?._key}`}
+            className="block bg-yellow-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-yellow-400"
           >
-            <path
-              fillRule="evenodd"
-              d="M2.625 6.75a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0A.75.75 0 0 1 8.25 6h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75ZM2.625 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0ZM7.5 12a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12A.75.75 0 0 1 7.5 12Zm-4.875 5.25a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75Z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </Link>
-      </td>
-    </tr>
+            Review
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 };
 

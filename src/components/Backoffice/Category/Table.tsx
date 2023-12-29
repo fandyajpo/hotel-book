@@ -27,7 +27,7 @@ const CategoryTable = () => {
         method: "GET",
       }),
 
-    enabled: auth.currentUser !== null && !deferQuery,
+    enabled: !deferQuery,
   });
 
   const { data: search, isLoading: searchLoading } = useQuery({
@@ -37,8 +37,7 @@ const CategoryTable = () => {
         method: "GET",
       }),
 
-    enabled:
-      (auth.currentUser !== null && deferQuery !== "") || deferQuery !== null,
+    enabled: deferQuery !== "" || deferQuery !== null,
   });
 
   return (

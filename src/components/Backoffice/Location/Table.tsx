@@ -26,7 +26,7 @@ const LocationTable = () => {
       client.get(`/api/location?page=${get("page") || 1}&limit=10`, {
         method: "GET",
       }),
-    enabled: auth.currentUser !== null && !deferQuery,
+    enabled: !deferQuery,
   });
 
   const { data: search, isLoading: searchLoading } = useQuery({
@@ -36,8 +36,7 @@ const LocationTable = () => {
         method: "GET",
       }),
 
-    enabled:
-      (auth.currentUser !== null && deferQuery !== "") || deferQuery !== null,
+    enabled: deferQuery !== "" || deferQuery !== null,
   });
 
   return (

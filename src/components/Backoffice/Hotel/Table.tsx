@@ -19,7 +19,7 @@ const HotelTable = () => {
       client.get(`/api/hotel?page=${get("page") || 1}&limit=9`, {
         method: "GET",
       }),
-    enabled: auth.currentUser !== null && !deferQuery,
+    enabled: !deferQuery,
   });
 
   const { data: search, isLoading: searchLoading } = useQuery({
@@ -29,8 +29,7 @@ const HotelTable = () => {
         method: "GET",
       }),
 
-    enabled:
-      (auth.currentUser !== null && deferQuery !== "") || deferQuery !== null,
+    enabled: deferQuery !== "" || deferQuery !== null,
   });
 
   return (

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { locationBySlug } from "@/query/location";
 import { LocationT, Params } from "@/types";
 import Loading from "./loading";
@@ -19,17 +20,16 @@ const HotelSlug = async (
 
   return (
     <>
-      <Banner location={location} />
-
+      <Banner text={`Hotels in ${location?.name}`} />
       <div className="flex justify-center pb-44 ">
-        <Layer isMiddle>
-          <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading />}>
+          <Layer isMiddle>
             <RoomList
               location={location}
               page={Number(props?.searchParams?.page)}
             />
-          </Suspense>
-        </Layer>
+          </Layer>
+        </Suspense>
       </div>
     </>
   );

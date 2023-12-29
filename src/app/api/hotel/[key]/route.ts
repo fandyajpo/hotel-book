@@ -29,7 +29,7 @@ export async function PATCH(
       body?.location ?? "",
       body?.status ?? "DRAFT",
       body?.description ?? "",
-      body?.currency ?? "",
+      body?.currency ?? "IDR",
       body?.slug
     );
 

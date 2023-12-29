@@ -6,9 +6,8 @@ import { StatusT, RoomT } from "@/types";
 import withData from "@/components/Hoc/withData";
 import Title from "../../Arch/Title";
 import { queryClient } from "@/provider/TanstackQuery";
-import AsyncSelect from "react-select/async";
 import { LoadingSVG } from "@/components/Icons";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import RoomMedia from "./Media";
 import RoomDelete from "./Delete";
 
@@ -20,7 +19,8 @@ type Option = {
 };
 
 const RoomForm = (props?: Option) => {
-  const { replace } = useRouter();
+  const params = useParams();
+  const { back } = useRouter();
   const { control, handleSubmit } = useForm<RoomT>({
     mode: "all",
     defaultValues:
@@ -39,8 +39,10 @@ const RoomForm = (props?: Option) => {
   const { mutate: create, isPending: pendingCreate } = useMutation({
     mutationKey: ["createRoom"],
     mutationFn: (data: RoomT) =>
-      client.post("/api/room", { ...data } as RoomT, { method: "POST" }),
-    onSuccess: () => replace("/bo/room"),
+      client.post("/api/room", { ...data, hotel: params.key } as RoomT, {
+        method: "POST",
+      }),
+    onSuccess: () => back(),
   });
 
   const { mutate: update, isPending: pendingUpdate } = useMutation({
@@ -48,8 +50,7 @@ const RoomForm = (props?: Option) => {
     mutationFn: (data: RoomT) =>
       client.patch(
         `/api/room/${data?._key}`,
-
-        { ...data } as RoomT,
+        { ...data, hotel: params.key } as RoomT,
         {
           method: "PATCH",
         }
@@ -101,7 +102,7 @@ const RoomForm = (props?: Option) => {
           }}
           render={({ field }) => (
             <div className="flex flex-col gap-2">
-              <label>Hotel Name</label>
+              <label>Room Name / Number</label>
               <input placeholder="Room Name" type="text" {...field} />
             </div>
           )}
@@ -160,32 +161,12 @@ const RoomForm = (props?: Option) => {
             )}
           />
         </div>
-        {/* <Controller
-          control={control}
-          name="type"
-          render={({ field }) => (
-            <div className="flex flex-col gap-2">
-              <label>Hotel Category</label>
-              <AsyncSelect
-                isSearchable
-                placeholder="Find Category"
-                defaultOptions={data?.data?.map?.((a: CategoryT) => ({
-                  label: a?.name,
-                  value: a?._key,
-                }))}
-                cacheOptions
-                loadOptions={searchCategory}
-                {...field}
-              />
-            </div>
-          )}
-        /> */}
         <Controller
           control={control}
           name="status"
           render={({ field }) => (
             <div className="flex flex-col gap-2">
-              <label>Hotel Status</label>
+              <label>Room Status</label>
               <select {...field}>
                 {HOTEL_STATUS.map((a) => {
                   return (

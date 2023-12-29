@@ -9,8 +9,8 @@ const HotelDelete = () => {
   const router = useRouter();
   const params = useParams();
   const { mutate, isPending } = useMutation({
-    mutationKey: ["delHotel"],
-    mutationFn: () => client.delete(`/api/hotel/${params?.key}`),
+    mutationKey: ["delRoom"],
+    mutationFn: () => client.delete(`/api/room/${params?.key}`),
     onSuccess: () => router.back(),
   });
   return (

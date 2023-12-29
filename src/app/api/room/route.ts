@@ -7,6 +7,7 @@ export async function GET(req: Request) {
 
     const page = searchParams.get("page");
     const limit = searchParams.get("limit");
+    const hotel = searchParams.get("hotel");
 
     const rPage = Number(page) - 1;
 
@@ -16,7 +17,11 @@ export async function GET(req: Request) {
         message: "provide limit and page number",
       });
 
-    const rooms = await listRoom(rPage * Number(limit), Number(limit));
+    const rooms = await listRoom(
+      rPage * Number(limit),
+      Number(limit),
+      String(hotel)
+    );
 
     return NextResponse.json(rooms);
   } catch (err) {
@@ -29,7 +34,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const create = await createRoom(
       body?.name ?? "",
-      body?.type ?? "",
+      body?.hotel ?? "",
       body?.status ?? "DRAFT",
       body?.description ?? "",
       Number(body?.bed ?? 1),

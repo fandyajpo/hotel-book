@@ -7,7 +7,6 @@ const url = [
   { name: "Hotel", url: "/bo/hotel?page=1" },
   { name: "Location", url: "/bo/location?page=1" },
   { name: "Category", url: "/bo/category?page=1" },
-  { name: "Room", url: "/bo/room?page=1" },
 ];
 
 const Navigation = () => {
