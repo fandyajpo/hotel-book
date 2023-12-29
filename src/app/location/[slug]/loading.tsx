@@ -1,4 +1,3 @@
-"use client";
 import { LoadingSVG } from "@/components/Icons";
 
 const Loading = () => {
