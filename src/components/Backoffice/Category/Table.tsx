@@ -124,7 +124,7 @@ const CategoryTable = () => {
 
       <Paging
         total={Number(data?.data?.total)}
-        currentPage={Number(get("page"))}
+        currentPage={Number(get("page") || 1)}
         limit={10}
       />
     </div>

@@ -22,7 +22,7 @@ const RoomList = async (props: Props) => {
         limit={10}
         total={hotel?.total}
         key={"HOTEL_PAGING"}
-        currentPage={Number(props?.page)}
+        currentPage={Number(props?.page || 1)}
       />
     </div>
   );
