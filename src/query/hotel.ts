@@ -105,8 +105,6 @@ export const hotelByLocation = async (
 ) => {
   const db = cacheConnection();
   try {
-    const rPage = Number(page) - 1;
-
     await getCollection("hotel", db);
     const resx = await db.query({
       query: `
@@ -124,7 +122,7 @@ export const hotelByLocation = async (
                 RETURN  a 
             )
 
-            LIMIT ${rPage * Number(limit)}, ${Number(limit)}
+            LIMIT ${page}, ${limit}
             RETURN MERGE(u, { category: FIRST(category), location: FIRST(location) })
           )
             

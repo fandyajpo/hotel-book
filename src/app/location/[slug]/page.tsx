@@ -1,11 +1,8 @@
-export const dynamic = "force-dynamic";
-import { locationBySlug } from "@/query/location";
-import { LocationT, Params } from "@/types";
-import Loading from "./loading";
+import { Params } from "@/types";
 import RoomList from "@/components/Hotel/HotelList";
 import Layer from "@/components/Layout/Layer";
 import Banner from "@/components/Hotel/Banner";
-import { Suspense } from "react";
+
 const HotelSlug = async (
   props: Params<{
     params: {
@@ -16,20 +13,25 @@ const HotelSlug = async (
     };
   }>
 ) => {
-  const location: LocationT = await locationBySlug?.(props?.params?.slug);
+  const location = await fetch(
+    `${process.env.NEXT_PUBLIC_URL}api/location/search/${props?.params?.slug}`,
+    {
+      method: "GET",
+    }
+  );
+
+  const result = await location.json();
 
   return (
     <>
-      <Banner text={`Hotels in ${location?.name}`} />
+      <Banner text={`Hotels in ${result?.name}`} />
       <div className="flex justify-center pb-44 ">
-        <Suspense fallback={<Loading />}>
-          <Layer isMiddle>
-            <RoomList
-              location={location}
-              page={Number(props?.searchParams?.page)}
-            />
-          </Layer>
-        </Suspense>
+        <Layer isMiddle>
+          <RoomList
+            location={result}
+            page={Number(props?.searchParams?.page)}
+          />
+        </Layer>
       </div>
     </>
   );

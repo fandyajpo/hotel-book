@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { User } from "firebase/auth";
 import { auth } from "@/lib/Firebase";
 import {
@@ -15,11 +15,11 @@ const SecureRoute = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const unsubsrcibe = auth.onAuthStateChanged((user: User | null) => {
-      if (segment === "auth" && user !== null) {
-        return router.replace("/bo/hotel");
+      if (segment !== "auth" && user === null) {
+        router.replace("/bo/auth");
       }
     });
-    return () => unsubsrcibe();
+    return unsubsrcibe;
   }, [auth, pathname, segment]);
 
   return <>{children}</>;

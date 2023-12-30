@@ -1,8 +1,8 @@
 import { hotelBySlug } from "@/query/hotel";
 import { HotelT, Params } from "@/types";
-import Loading from "./loading";
 import Banner from "@/components/Hotel/Banner";
-import { Suspense } from "react";
+import TopBanner from "@/components/Hotel/TopBanner";
+import Layer from "@/components/Layout/Layer";
 const HotelSlug = async (
   props: Params<{
     params: {
@@ -18,15 +18,12 @@ const HotelSlug = async (
   return (
     <>
       <Banner text={`in ${hotel?.name}`} />
-
-      {/*  
       <div className="flex justify-center pb-44 ">
         <Layer isMiddle>
-          <Suspense fallback={<Loading />}>
-            <RoomList location={location} />
-          </Suspense>
+          <TopBanner image="" />
+          <pre>{JSON.stringify(hotel, null, 2)}</pre>
         </Layer>
-      </div> */}
+      </div>
     </>
   );
 };

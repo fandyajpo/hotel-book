@@ -11,7 +11,9 @@ const SearchForm = () => {
       <input
         placeholder="Search Location"
         value={get("q") as string}
-        onChange={(e) => push(`/bo/location?q=${e?.target?.value}`)}
+        onChange={(e) =>
+          push(`/bo/location?q=${encodeURIComponent(e?.target?.value)}`)
+        }
       />
     </div>
   );

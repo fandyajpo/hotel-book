@@ -13,24 +13,33 @@ const Navigation = () => {
   const segments = useSelectedLayoutSegment();
   return (
     <div className="flex flex-col gap-4 p-2">
-      {segments !== "auth" &&
-        url?.map((a) => (
-          <Link
-            key={a.name}
-            href={`${a.url}`}
-            shallow
-            className={`text-white duration-500 ${
-              segments === a.name.toLocaleLowerCase()
-                ? "bg-black border-l p-1"
-                : null
-            }`}
+      {segments !== "auth" && (
+        <>
+          {url?.map((a) => (
+            <>
+              <Link
+                key={a.name}
+                href={`${a.url}`}
+                shallow
+                className={`text-white duration-500 ${
+                  segments === a.name.toLocaleLowerCase()
+                    ? "bg-black border-l p-1"
+                    : null
+                }`}
+              >
+                {a.name}
+              </Link>
+            </>
+          ))}
+          <button
+            type="button"
+            className="bg-white text-blue-500 p-1"
+            onClick={() => signOut(auth)}
           >
-            {a.name}
-          </Link>
-        ))}
-      <button type="button" onClick={() => signOut(auth)}>
-        Sign Out
-      </button>
+            Sign Out
+          </button>
+        </>
+      )}
     </div>
   );
 };
