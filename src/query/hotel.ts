@@ -129,8 +129,6 @@ export const hotelByLocation = async (
                 FILTER a._key == u.location
                 RETURN a 
             )
-            
-
             LIMIT ${page}, ${limit}
             RETURN MERGE(u, { category: FIRST(category), location: FIRST(location) })
           )
@@ -307,6 +305,35 @@ export const searchhotel = async (search: string) => {
     });
     const result = await resx.all();
     return result;
+  } catch (error) {
+    throw error;
+  } finally {
+    db.close();
+  }
+};
+
+export const updateHotelMediaPosition = async (
+  key: string,
+  image: Array<ImageKitFileT>
+) => {
+  const db = cacheConnection();
+  try {
+    await getCollection("hotel", db);
+    await db.query({
+      query: `LET f = DOCUMENT(@@coll, @key)
+      FILTER f != null
+      UPDATE f WITH { 
+        image: @slug,
+      }
+      IN @@coll`,
+      bindVars: {
+        "@coll": "hotel",
+        key,
+        image,
+      },
+    });
+
+    return { success: true };
   } catch (error) {
     throw error;
   } finally {

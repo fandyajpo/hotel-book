@@ -8,7 +8,8 @@ import { useParams } from "next/navigation";
 import { ChangeEvent } from "react";
 import { ImageKitFileT } from "@/lib/imageKit";
 import { LoadingSVG } from "@/components/Icons";
-import Title from "../../Arch/Title";
+import Title from "../../../Arch/Title";
+import Test from "./Test";
 type Media = {
   media?: Array<ImageKitFileT>;
 };

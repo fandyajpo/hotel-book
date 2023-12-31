@@ -11,16 +11,24 @@ export const listBooking = async (page: number, limit: number) => {
       query: `
       LET data = (
         FOR p IN @@coll
-          LIMIT ${page}, ${limit}
-        RETURN p
+        LET roo = (
+          FOR c IN room
+          FILTER c._key == p.room
+          LET hot = (
+            FOR h IN hotel
+              FILTER h._key == c.hotel
+              RETURN h
+          )
+          RETURN MERGE(c, {hotel:FIRST(hot)}) 
+        )
+        LIMIT ${page}, ${limit}
+        RETURN MERGE(p, {room:FIRST(roo)})
       )
-
       LET total = (
         FOR p IN @@coll
           COLLECT WITH COUNT INTO length
         return length
       )
-
       RETURN { total, data }
       `,
       bindVars: { "@coll": "booking" },

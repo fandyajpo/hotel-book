@@ -38,7 +38,7 @@ const WhyUs = () => {
 
                 <h2 className="mt-2 font-bold">Comfortable</h2>
 
-                <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+                <p className=" sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
                   Luxurious rooms.
                 </p>
               </div>
@@ -65,7 +65,7 @@ const WhyUs = () => {
 
                 <h2 className="mt-2 font-bold">WiFi</h2>
 
-                <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+                <p className=" sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
                   Free high-speed.
                 </p>
               </div>
@@ -92,7 +92,7 @@ const WhyUs = () => {
 
                 <h2 className="mt-2 font-bold">Wellness</h2>
 
-                <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+                <p className=" sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
                   Fitness and spa.
                 </p>
               </div>
@@ -119,7 +119,7 @@ const WhyUs = () => {
 
                 <h2 className="mt-2 font-bold">Dining</h2>
 
-                <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+                <p className=" sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
                   On-site options.
                 </p>
               </div>
@@ -146,7 +146,7 @@ const WhyUs = () => {
 
                 <h2 className="mt-2 font-bold">24/7 Service</h2>
 
-                <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+                <p className=" sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
                   Round-the-clock.
                 </p>
               </div>
@@ -173,7 +173,7 @@ const WhyUs = () => {
 
                 <h2 className="mt-2 font-bold">Events</h2>
 
-                <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+                <p className=" sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
                   Modern facilities.
                 </p>
               </div>
