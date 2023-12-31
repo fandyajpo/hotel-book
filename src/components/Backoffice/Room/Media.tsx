@@ -13,7 +13,7 @@ type Media = {
   media?: Array<ImageKitFileT>;
 };
 
-const HotelMedia = (props: Media) => {
+const RoomMedia = (props: Media) => {
   const params = useParams();
 
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,10 +27,10 @@ const HotelMedia = (props: Media) => {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationKey: ["updateHotelMedia"],
+    mutationKey: ["updateRoomMedia"],
     mutationFn: (image) =>
       client.patch(
-        `api/hotel/${params?.key}/media`,
+        `api/room/${params?.key}/media`,
         {
           image: image,
         },
@@ -40,14 +40,14 @@ const HotelMedia = (props: Media) => {
       ),
     onSuccess: () =>
       queryClient.invalidateQueries({
-        queryKey: ["hotel"],
+        queryKey: ["room"],
       }),
   });
 
   return (
     <div className="relative">
       <div className="border border-gray-300 p-4 rounded space-y-2 z-20">
-        <Title title="Hotel Media" />
+        <Title title="Room Media" />
         {isPending ? (
           <LoadingSVG className="w-6 h-6" />
         ) : (
@@ -70,4 +70,4 @@ const HotelMedia = (props: Media) => {
   );
 };
 
-export default HotelMedia;
+export default RoomMedia;

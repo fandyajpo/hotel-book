@@ -6,16 +6,15 @@ import LocationForm from "@/components/Backoffice/Location/Form";
 import { useQuery } from "@tanstack/react-query";
 import { client } from "@/lib/axios";
 import Paging from "@/components/Layout/Pagination";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Header from "../Header";
 import SearchForm from "./SearchForm";
 import { useDeferredValue } from "react";
 import { LoadingSVG } from "@/components/Icons";
-import { auth } from "@/lib/Firebase";
 const LocationTable = () => {
   const { get } = useSearchParams();
   const deferQuery = useDeferredValue(get("q"));
-  const { push } = useRouter();
+
   const action = (data: LocationT) => {
     documentById(data?._key as string)?.showModal?.();
   };

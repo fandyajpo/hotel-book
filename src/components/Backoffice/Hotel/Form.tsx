@@ -133,10 +133,9 @@ const HotelForm = (props?: Option) => {
     }
   };
 
-  const submit = handleSubmit((data: HotelT) => {
-    // return console.log(data);
-    props?.method === "CREATE" ? create(data) : update(data);
-  });
+  const submit = handleSubmit((data: HotelT) =>
+    props?.method === "CREATE" ? create(data) : update(data)
+  );
 
   return (
     <div className="space-y-4">

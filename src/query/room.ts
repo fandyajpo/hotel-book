@@ -46,17 +46,18 @@ export const roomByHotel = async (hotel: string) => {
     const resx = await db.query({
       query: `FOR u IN @@coll
        FILTER u.hotel == @hotel
+
             LET category = (
               FOR c IN category
                 FILTER c._key == u.category
                 RETURN  c 
             )
-      
+
       RETURN MERGE(u, { category: FIRST(category) })`,
       bindVars: { "@coll": "room", hotel },
     });
     const result = await resx.all();
-    return result?.[0];
+    return result;
   } catch (error) {
     throw error;
   } finally {
