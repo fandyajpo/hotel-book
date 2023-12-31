@@ -18,7 +18,7 @@ const RoomTable = () => {
     queryKey: ["rooms", get("page"), deferQuery],
     queryFn: () =>
       client.get(
-        `/api/room?page=${get("page") || 1}&limit=10&hotel=${params?.key}`,
+        `api/room?page=${get("page") || 1}&limit=10&hotel=${params?.key}`,
         {
           method: "GET",
         }
@@ -29,7 +29,7 @@ const RoomTable = () => {
   const { data: search } = useQuery({
     queryKey: ["roomSearch", deferQuery],
     queryFn: () =>
-      client.get(`/api/category/search?search=${deferQuery}`, {
+      client.get(`api/category/search?search=${deferQuery}`, {
         method: "GET",
       }),
 

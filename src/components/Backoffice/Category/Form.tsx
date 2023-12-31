@@ -24,7 +24,7 @@ const CategoryForm = (props?: Option) => {
     mutationKey: ["createCategory"],
     mutationFn: (data: CategoryT) =>
       client.post(
-        "/api/category",
+        "api/category",
         { ...data },
         {
           method: "POST",
@@ -43,7 +43,7 @@ const CategoryForm = (props?: Option) => {
     mutationKey: ["updateCategory"],
     mutationFn: (data: CategoryT) =>
       client.patch(
-        `/api/category/${data?._key}`,
+        `api/category/${data?._key}`,
         { ...data },
         {
           method: "PATCH",

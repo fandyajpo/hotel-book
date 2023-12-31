@@ -55,7 +55,7 @@ const HotelForm = (props?: Option) => {
     mutationKey: ["createHotel"],
     mutationFn: (data: HotelT) =>
       client.post(
-        "/api/hotel",
+        "api/hotel",
         {
           ...data,
           // @ts-ignore
@@ -73,7 +73,7 @@ const HotelForm = (props?: Option) => {
     mutationKey: ["updateHotel"],
     mutationFn: (data: HotelT) =>
       client.patch(
-        `/api/hotel/${data?._key}`,
+        `api/hotel/${data?._key}`,
         {
           ...data,
           // @ts-ignore
@@ -92,7 +92,7 @@ const HotelForm = (props?: Option) => {
   const { data } = useQuery({
     queryKey: ["hotelCategory"],
     queryFn: () =>
-      client.get(`/api/category/search?search=`, {
+      client.get(`api/category/search?search=`, {
         method: "GET",
       }),
   });
@@ -100,14 +100,14 @@ const HotelForm = (props?: Option) => {
   const { data: location } = useQuery({
     queryKey: ["hotelLocation"],
     queryFn: () =>
-      client.get(`/api/location/search?search=`, {
+      client.get(`api/location/search?search=`, {
         method: "GET",
       }),
   });
 
   const searchCategory = async (q: string) => {
     try {
-      const rr = await client.get(`/api/category/search?search=${q}`, {
+      const rr = await client.get(`api/category/search?search=${q}`, {
         method: "GET",
       });
       return rr?.data?.map?.((a: CategoryT) => ({
@@ -121,7 +121,7 @@ const HotelForm = (props?: Option) => {
 
   const searchLocation = async (q: string) => {
     try {
-      const rr = await client.get(`/api/location/search?search=${q}`, {
+      const rr = await client.get(`api/location/search?search=${q}`, {
         method: "GET",
       });
       return rr?.data?.map?.((a: LocationT) => ({

@@ -30,7 +30,7 @@ const HotelMedia = (props: Media) => {
     mutationKey: ["updateHotelMedia"],
     mutationFn: (image) =>
       client.patch(
-        `/api/hotel/${params?.key}/media`,
+        `api/hotel/${params?.key}/media`,
         {
           image: image,
         },

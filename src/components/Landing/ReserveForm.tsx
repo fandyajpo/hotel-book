@@ -27,7 +27,7 @@ const ReserveForm = () => {
 
   const searchLocation = async (q: string) => {
     try {
-      const rr = await client.get(`/api/location/search?search=${q}`, {
+      const rr = await client.get(`api/location/search?search=${q}`, {
         method: "GET",
       });
       return rr?.data?.map?.((a: LocationT) => ({
@@ -42,7 +42,7 @@ const ReserveForm = () => {
   const { data } = useQuery({
     queryKey: ["hotelLocations"],
     queryFn: () =>
-      client.get(`/api/location/search?search=`, {
+      client.get(`api/location/search?search=`, {
         method: "GET",
       }),
   });

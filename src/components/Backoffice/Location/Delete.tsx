@@ -15,7 +15,7 @@ const LocationDelete = (props: Props) => {
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["delCat"],
-    mutationFn: () => client.delete(`/api/location/${props?.data?._key}`),
+    mutationFn: () => client.delete(`api/location/${props?.data?._key}`),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["locations"] }),
   });
   return (

@@ -39,7 +39,7 @@ const RoomForm = (props?: Option) => {
   const { mutate: create, isPending: pendingCreate } = useMutation({
     mutationKey: ["createRoom"],
     mutationFn: (data: RoomT) =>
-      client.post("/api/room", { ...data, hotel: params.key } as RoomT, {
+      client.post("api/room", { ...data, hotel: params.key } as RoomT, {
         method: "POST",
       }),
     onSuccess: () => back(),
@@ -49,7 +49,7 @@ const RoomForm = (props?: Option) => {
     mutationKey: ["updateRoom"],
     mutationFn: (data: RoomT) =>
       client.patch(
-        `/api/room/${data?._key}`,
+        `api/room/${data?._key}`,
         { ...data, hotel: params.key } as RoomT,
         {
           method: "PATCH",
@@ -61,14 +61,14 @@ const RoomForm = (props?: Option) => {
   // const { data } = useQuery({
   //   queryKey: ["hotelCategory"],
   //   queryFn: () =>
-  //     client.get(`/api/room/search?search=`, {
+  //     client.get(`api/room/search?search=`, {
   //       method: "GET",
   //     }),
   // });
 
   // const searchCategory = async (q: string) => {
   //   try {
-  //     const rr = await client.get(`/api/category/search?search=${q}`, {
+  //     const rr = await client.get(`api/category/search?search=${q}`, {
   //       method: "GET",
   //     });
   //     return rr?.data?.map?.((a: CategoryT) => ({

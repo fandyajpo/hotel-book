@@ -23,7 +23,7 @@ const CategoryTable = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["categorys", get("page"), deferQuery],
     queryFn: () =>
-      client.get(`/api/category?page=${get("page") || 1}&limit=10`, {
+      client.get(`api/category?page=${get("page") || 1}&limit=10`, {
         method: "GET",
       }),
 
@@ -33,7 +33,7 @@ const CategoryTable = () => {
   const { data: search, isLoading: searchLoading } = useQuery({
     queryKey: ["categorySearch", deferQuery],
     queryFn: () =>
-      client.get(`/api/category/search?search=${deferQuery}`, {
+      client.get(`api/category/search?search=${deferQuery}`, {
         method: "GET",
       }),
 

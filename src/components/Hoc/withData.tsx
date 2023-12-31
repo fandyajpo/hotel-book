@@ -20,7 +20,7 @@ const withData = <T,>(
       queryKey: [requirement.queryKey, params?.key, params?.id],
       queryFn: () =>
         client.get(
-          `/api/${requirement?.apiScope}/${params?.id || params?.key}`,
+          `api/${requirement?.apiScope}/${params?.id || params?.key}`,
           {
             method: "GET",
           }

@@ -23,7 +23,7 @@ const LocationTable = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["locations", get("page"), deferQuery],
     queryFn: () =>
-      client.get(`/api/location?page=${get("page") || 1}&limit=10`, {
+      client.get(`api/location?page=${get("page") || 1}&limit=10`, {
         method: "GET",
       }),
     enabled: !deferQuery,
@@ -32,7 +32,7 @@ const LocationTable = () => {
   const { data: search, isLoading: searchLoading } = useQuery({
     queryKey: ["locationSearch", deferQuery],
     queryFn: () =>
-      client.get(`/api/location/search?search=${deferQuery}`, {
+      client.get(`api/location/search?search=${deferQuery}`, {
         method: "GET",
       }),
 

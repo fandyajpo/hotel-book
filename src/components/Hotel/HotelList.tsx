@@ -16,7 +16,7 @@ const RoomList = (props: Props) => {
     queryKey: ["hotelByLocation", get("page")],
     queryFn: () =>
       client.get(
-        `/api/hotel/location/${props.location?._key}?page=${
+        `api/hotel/location/${props.location?._key}?page=${
           get("page") || 1
         }&limit=10`,
         {

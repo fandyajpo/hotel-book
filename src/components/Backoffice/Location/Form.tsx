@@ -24,7 +24,7 @@ const LocationForm = (props?: Option) => {
     mutationKey: ["createLocation"],
     mutationFn: (data: LocationT) =>
       client.post(
-        "/api/location",
+        "api/location",
         { ...data, slug: slug(data?.name) },
         {
           method: "POST",
@@ -43,7 +43,7 @@ const LocationForm = (props?: Option) => {
     mutationKey: ["updateLocation"],
     mutationFn: (data: LocationT) =>
       client.patch(
-        `/api/location/${data?._key}`,
+        `api/location/${data?._key}`,
         { ...data, slug: slug(data?.name) },
         {
           method: "PATCH",

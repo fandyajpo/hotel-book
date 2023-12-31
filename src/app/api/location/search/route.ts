@@ -7,6 +7,7 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search");
     const cat = await searchLocation(String(search));
+    console.log(cat);
     return NextResponse.json(cat);
   } catch (err) {
     return NextResponse.json(err);

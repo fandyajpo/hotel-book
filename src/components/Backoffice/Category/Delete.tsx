@@ -17,7 +17,7 @@ const CategoryDelete = (props: Props) => {
   const { mutate, isPending } = useMutation({
     mutationKey: ["delCat"],
 
-    mutationFn: () => client.delete(`/api/category/${props?.data?._key}`),
+    mutationFn: () => client.delete(`api/category/${props?.data?._key}`),
     onSuccess: () =>
       Promise.all([
         queryClient.invalidateQueries({

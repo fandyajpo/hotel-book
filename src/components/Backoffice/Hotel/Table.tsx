@@ -16,7 +16,7 @@ const HotelTable = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["hotels", get("page")],
     queryFn: () =>
-      client.get(`/api/hotel?page=${get("page") || 1}&limit=9`, {
+      client.get(`api/hotel?page=${get("page") || 1}&limit=9`, {
         method: "GET",
       }),
     enabled: !deferQuery,
@@ -25,7 +25,7 @@ const HotelTable = () => {
   const { data: search, isLoading: searchLoading } = useQuery({
     queryKey: ["hotelSearch", deferQuery],
     queryFn: () =>
-      client.get(`/api/hotel/search?search=${deferQuery}`, {
+      client.get(`api/hotel/search?search=${deferQuery}`, {
         method: "GET",
       }),
 
