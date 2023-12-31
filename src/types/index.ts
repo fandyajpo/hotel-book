@@ -18,6 +18,11 @@ export type Slug = { slug?: string };
 export type StatusT = "AVAILABLE" | "DRAFT" | "BOOKED";
 export type CurrencyT = "IDR" | "AUD" | "USD" | "THB" | "SGD" | "EUR" | "GBP";
 
+export type SlugMeta = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
 export type HotelT = {
   name?: string;
   description?: string;
@@ -64,6 +69,7 @@ export type SecureFormT = {
   guest: number;
   email: string;
   phone: string;
+  room?: RoomT;
 };
 
 export type OrderT = {

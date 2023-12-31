@@ -1,42 +1,29 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { client } from "@/lib/axios";
-import { useSearchParams, useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Paging from "@/components/Layout/Pagination";
 import Header from "../Header";
 import { useDeferredValue } from "react";
 
-const RoomTable = () => {
+const BookingHotel = () => {
   const { get } = useSearchParams();
   const deferQuery = useDeferredValue(get("q"));
-  const params = useParams();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["rooms", get("page"), deferQuery],
+    queryKey: ["bookings", get("page"), deferQuery],
     queryFn: () =>
-      client.get(
-        `api/room?page=${get("page") || 1}&limit=10&hotel=${params?.key}`,
-        {
-          method: "GET",
-        }
-      ),
-    enabled: !deferQuery,
-  });
-
-  const { data: search } = useQuery({
-    queryKey: ["roomSearch", deferQuery],
-    queryFn: () =>
-      client.get(`api/category/search?search=${deferQuery}`, {
+      client.get(`api/booking?page=${get("page") || 1}&limit=10`, {
         method: "GET",
       }),
-
-    enabled: deferQuery !== "" || deferQuery !== null,
+    enabled: !deferQuery,
   });
 
   return (
     <div className="space-y-2">
       <Header title="Room List" total={data?.data?.total} />
 
+      <pre>{JSON.stringify(data, null, 2)}</pre>
       {/* {isLoading ? (
         <div className="py-8">
           <LoadingSVG className="w-8 h-8" />
@@ -58,4 +45,4 @@ const RoomTable = () => {
   );
 };
 
-export default RoomTable;
+export default BookingHotel;

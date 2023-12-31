@@ -1,9 +1,13 @@
 "use server";
 import { cacheConnection, getCollection, getView } from "@/lib/arangoDb";
 import { ImageKitFileT } from "@/lib/imageKit";
-import { CurrencyT } from "@/types";
+import { CurrencyT, StatusT } from "@/types";
 
-export const listHotel = async (page: number, limit: number) => {
+export const listHotel = async (
+  page: number,
+  limit: number,
+  status: StatusT
+) => {
   const db = cacheConnection();
   try {
     await getCollection("hotel", db);
@@ -11,6 +15,7 @@ export const listHotel = async (page: number, limit: number) => {
       query: ` 
       LET data = (
         FOR p IN @@coll
+        FILTER p.status != @status
           LET cat = (
             FOR c IN category
               FILTER c._key == p.category
@@ -22,12 +27,13 @@ export const listHotel = async (page: number, limit: number) => {
 
       LET total = (
         FOR p IN @@coll
+        FILTER p.status != @status
           COLLECT WITH COUNT INTO length
         return length
       )
 
       RETURN { total, data }`,
-      bindVars: { "@coll": "hotel" },
+      bindVars: { "@coll": "hotel", status },
     });
     const result = await resx.all();
     return result[0];
@@ -101,7 +107,8 @@ export const hotelBySlug = async (slug: string) => {
 export const hotelByLocation = async (
   page: number,
   limit: number,
-  location: string
+  location: string,
+  status: string
 ) => {
   const db = cacheConnection();
   try {
@@ -110,6 +117,7 @@ export const hotelByLocation = async (
       query: `
           LET data = (
             FOR u IN @@coll
+            FILTER u.status != @status
             FILTER u.location == @loc
             LET category = (
               FOR c IN category
@@ -119,8 +127,9 @@ export const hotelByLocation = async (
             LET location = (
               FOR a IN location
                 FILTER a._key == u.location
-                RETURN  a 
+                RETURN a 
             )
+            
 
             LIMIT ${page}, ${limit}
             RETURN MERGE(u, { category: FIRST(category), location: FIRST(location) })
@@ -128,13 +137,14 @@ export const hotelByLocation = async (
             
           LET total = (
               FOR p IN @@coll
+                FILTER p.status != @status
                 FILTER p.location == @loc
                 COLLECT WITH COUNT INTO length
               return length
           )
 
           RETURN { total, data }`,
-      bindVars: { "@coll": "hotel", loc: location },
+      bindVars: { "@coll": "hotel", loc: location, status },
     });
     const result = await resx.all();
     return result[0];

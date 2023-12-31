@@ -12,11 +12,11 @@ import { auth } from "@/lib/Firebase";
 const HotelTable = () => {
   const { get } = useSearchParams();
   const deferQuery = useDeferredValue(get("q"));
-  const { push } = useRouter();
+
   const { data, isLoading } = useQuery({
     queryKey: ["hotels", get("page")],
     queryFn: () =>
-      client.get(`api/hotel?page=${get("page") || 1}&limit=9`, {
+      client.get(`api/hotel?page=${get("page") || 1}&limit=9&status=DRAFT`, {
         method: "GET",
       }),
     enabled: !deferQuery,
@@ -25,7 +25,7 @@ const HotelTable = () => {
   const { data: search, isLoading: searchLoading } = useQuery({
     queryKey: ["hotelSearch", deferQuery],
     queryFn: () =>
-      client.get(`api/hotel/search?search=${deferQuery}`, {
+      client.get(`api/hotel/search?search=${deferQuery}&status=DRAFT`, {
         method: "GET",
       }),
 

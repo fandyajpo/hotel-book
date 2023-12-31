@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import { listHotel, createHotel } from "@/query/hotel";
+import { StatusT } from "@/types";
 
 export async function GET(req: Request) {
   try {
@@ -8,6 +9,7 @@ export async function GET(req: Request) {
 
     const page = searchParams.get("page");
     const limit = searchParams.get("limit");
+    const status = searchParams.get("status");
 
     const rPage = Number(page) - 1;
 
@@ -17,7 +19,11 @@ export async function GET(req: Request) {
         message: "provide limit and page number",
       });
 
-    const rooms = await listHotel(rPage * Number(limit), Number(limit));
+    const rooms = await listHotel(
+      rPage * Number(limit),
+      Number(limit),
+      status as StatusT
+    );
     return NextResponse.json(rooms);
   } catch (err) {
     return NextResponse.json(err);

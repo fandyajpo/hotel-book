@@ -1,18 +1,22 @@
 export const dynamic = "force-dynamic";
-import { hotelByLocation } from "@/query/hotel";
-import { Params, StatusT } from "@/types";
+import { createBooking, listBooking } from "@/query/booking";
 import { NextResponse } from "next/server";
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const create = await createBooking(body);
+    return NextResponse.json(create);
+  } catch (err) {
+    return NextResponse.json(err);
+  }
+}
 
-export async function GET(
-  req: Request,
-  { params }: { params: Params<{ id: string }> }
-) {
+export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
 
     const page = searchParams.get("page");
     const limit = searchParams.get("limit");
-    const status = searchParams.get("status");
 
     const rPage = Number(page) - 1;
 
@@ -22,13 +26,8 @@ export async function GET(
         message: "provide limit and page number",
       });
 
-    const hotel = await hotelByLocation(
-      rPage * Number(limit),
-      Number(limit),
-      params.id,
-      status as StatusT
-    );
-    return NextResponse.json(hotel);
+    const cat = await listBooking(rPage * Number(limit), Number(limit));
+    return NextResponse.json(cat);
   } catch (err) {
     return NextResponse.json(err);
   }

@@ -1,8 +1,9 @@
 "use client";
-import { HotelT } from "@/types";
+import { HotelT, StatusT } from "@/types";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ImageLoader from "../Layout/ImageLoader";
+import CardStatus from "@/lib/cardStatus";
 interface Props {
   hotel: HotelT;
 }
@@ -12,13 +13,7 @@ const HotelCard = (props: Props) => {
 
   return (
     <div className="flex bg-white w-full transition hover:shadow border">
-      <div className="rotate-180 p-2 [writing-mode:_vertical-lr]">
-        <div className="flex items-center justify-between gap-4 text-xs font-bold uppercase text-gray-900">
-          <span>-</span>
-          <span className="w-px flex-1 bg-gray-900/10"></span>
-          <span>-</span>
-        </div>
-      </div>
+      <CardStatus status={props.hotel.status as StatusT} />
 
       <div className="w-full basis-44">
         <div className="aspect-square h-full w-full object-cover">

@@ -3,13 +3,17 @@ import { RoomT, SecureFormT } from "@/types";
 import { useForm, Controller } from "react-hook-form";
 import { useSearchParams } from "next/navigation";
 import { documentById } from "@/lib/listFunc";
+import { useMutation } from "@tanstack/react-query";
+import { client } from "@/lib/axios";
+import { LoadingSVG } from "../Icons";
+
 interface Props {
   room: RoomT;
 }
 
 const SecureAlert = (props: Props) => {
   const { get } = useSearchParams();
-  const { control } = useForm<SecureFormT>({
+  const { control, handleSubmit } = useForm<SecureFormT>({
     defaultValues: {
       checkIn: String(get("checkin")),
       checkOut: String(get("checkout")),
@@ -17,10 +21,26 @@ const SecureAlert = (props: Props) => {
     },
   });
 
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: (data: SecureFormT) =>
+      client.post("api/booking", {
+        ...data,
+        room: props?.room?._key,
+        guest: Number(data.guest),
+      }),
+    mutationKey: ["createBooking"],
+    onSuccess: () => documentById("congrats")?.showModal?.(),
+  });
+
+  const onSubmit = handleSubmit(async (data: SecureFormT) => {
+    await mutateAsync(data);
+    return documentById(props?.room?._key as string)?.close?.();
+  });
+
   return (
     <div className="p-4">
-      <form className="flex flex-col w-full space-y-2">
-        <p>{props.room.name}</p>
+      <form className="flex flex-col w-full space-y-2" onSubmit={onSubmit}>
+        <p className="font-semibold">{props.room.name}</p>
         <Controller
           rules={{
             required: true,
@@ -112,15 +132,23 @@ const SecureAlert = (props: Props) => {
           name="phone"
         />
         <div className="flex w-full pt-4">
+          {isPending ? null : (
+            <button
+              className="w-full text-red-500 p-1"
+              type="button"
+              onClick={() =>
+                documentById(props?.room?._key as string)?.close?.()
+              }
+            >
+              Cancel
+            </button>
+          )}
           <button
-            className="w-full text-red-500 p-1"
-            type="button"
-            onClick={() => documentById(props?.room?._key as string)?.close?.()}
+            disabled={isPending}
+            className="bg-blue-500 p-1 text-white w-full rounded"
+            type="submit"
           >
-            Cancel
-          </button>
-          <button className="bg-blue-500 p-1 w-full rounded" type="button">
-            Secure Now
+            {isPending ? <LoadingSVG className="w-6 h-6" /> : "Secure Now"}
           </button>
         </div>
       </form>

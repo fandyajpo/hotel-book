@@ -18,7 +18,7 @@ const RoomList = (props: Props) => {
       client.get(
         `api/hotel/location/${props.location?._key}?page=${
           get("page") || 1
-        }&limit=10`,
+        }&limit=10&status=DRAFT`,
         {
           method: "GET",
         }
