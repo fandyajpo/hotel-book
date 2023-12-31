@@ -24,18 +24,13 @@ const HotelSlug = async (
   const result = await location.json();
 
   return (
-    <>
-      <div className="flex justify-center pb-44 ">
-        <Layer isMiddle>
-          <Back />
-          <Banner text={`Hotels in ${result?.name}`} />
-          <RoomList
-            location={result}
-            page={Number(props?.searchParams?.page)}
-          />
-        </Layer>
-      </div>
-    </>
+    <div className="flex justify-center pb-44 ">
+      <Layer isMiddle>
+        <Back />
+        <Banner text={`Hotels in ${result?.name}`} />
+        <RoomList location={result} page={Number(props?.searchParams?.page)} />
+      </Layer>
+    </div>
   );
 };
 

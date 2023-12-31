@@ -7,7 +7,7 @@ interface Props {
 const Banner = (props: Props) => {
   return (
     <section className="bg-white">
-      <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-96 lg:items-center">
+      <div className="mx-auto max-w-screen-xl px-4 py-12 lg:flex lg:h-96 lg:items-center">
         <div className="mx-auto max-w-xl text-center">
           <h1 className="text-3xl font-extrabold sm:text-5xl">
             Discover the best.

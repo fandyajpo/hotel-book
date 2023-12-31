@@ -25,8 +25,8 @@ const ImageLoader = memo((props: Props) => {
             onLoadingComplete={() => setTimeout(() => setLoad(false), 500)}
             layout="fill"
             onError={() => setError(true)}
-            blurDataURL={props.imageSource}
-            src={props.imageSource}
+            blurDataURL={props?.imageSource}
+            src={props?.imageSource}
             className="w-full h-full flex-none object-cover"
           />
         ) : (

@@ -10,7 +10,11 @@ const HotelSlug = async (
     };
   }>
 ) => {
-  return <></>;
+  return (
+    <>
+      <hr className="shadow" />
+    </>
+  );
 };
 
 export default HotelSlug;
