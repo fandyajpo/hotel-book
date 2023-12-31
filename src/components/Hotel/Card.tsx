@@ -22,7 +22,7 @@ const HotelCard = (props: Props) => {
 
       <div className="w-full basis-44">
         <div className="aspect-square h-full w-full object-cover">
-          <ImageLoader imageSource={props?.hotel?.image?.[0] as any} />
+          <ImageLoader imageSource={props?.hotel?.image?.[0]?.url as any} />
         </div>
       </div>
 

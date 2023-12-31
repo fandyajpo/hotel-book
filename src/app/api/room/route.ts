@@ -8,6 +8,7 @@ export async function GET(req: Request) {
     const page = searchParams.get("page");
     const limit = searchParams.get("limit");
     const hotel = searchParams.get("hotel");
+    const status = searchParams.get("status");
 
     const rPage = Number(page) - 1;
 
@@ -20,7 +21,8 @@ export async function GET(req: Request) {
     const rooms = await listRoom(
       rPage * Number(limit),
       Number(limit),
-      String(hotel)
+      String(hotel),
+      String(status)
     );
 
     return NextResponse.json(rooms);

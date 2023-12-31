@@ -11,7 +11,7 @@ import { useRouter, useParams } from "next/navigation";
 import RoomMedia from "./Media";
 import RoomDelete from "./Delete";
 
-const HOTEL_STATUS: Array<StatusT> = ["DRAFT", "AVAILABLE"];
+const HOTEL_STATUS: Array<StatusT> = ["DRAFT", "AVAILABLE", "BOOKED"];
 
 type Option = {
   method?: "UPDATE" | "CREATE";

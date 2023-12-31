@@ -20,8 +20,11 @@ const RoomList = (props: Props) => {
       client.get(
         `api/room?page=${get("page") || 1}&limit=10&hotel=${
           props?.hotel?._key
-        }`,
+        }&status=DRAFT`,
         {
+          params: {
+            status: "DRAFT",
+          },
           method: "GET",
         }
       ),

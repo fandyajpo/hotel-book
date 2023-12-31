@@ -2,7 +2,12 @@
 import { cacheConnection, getCollection } from "@/lib/arangoDb";
 import { ImageKitFileT } from "@/lib/imageKit";
 
-export const listRoom = async (page: number, limit: number, hotel: string) => {
+export const listRoom = async (
+  page: number,
+  limit: number,
+  hotel: string,
+  status: string
+) => {
   const db = cacheConnection();
   try {
     await getCollection("room", db);
@@ -11,7 +16,8 @@ export const listRoom = async (page: number, limit: number, hotel: string) => {
       LET data = (
         FOR p IN @@coll
           FILTER p.hotel == @hotel
-
+          FILTER p.status != @status
+       
           LET hotel = (
             FOR c IN hotel
               FILTER c._key == p.hotel
@@ -24,11 +30,12 @@ export const listRoom = async (page: number, limit: number, hotel: string) => {
       LET total = (
         FOR p IN @@coll
           FILTER p.hotel == @hotel
+          FILTER p.status != @status
           COLLECT WITH COUNT INTO length
         return length
       )
       RETURN { total, data }`,
-      bindVars: { "@coll": "room", hotel },
+      bindVars: { "@coll": "room", hotel, status },
     });
     const result = await resx.all();
     return result[0];
@@ -46,7 +53,7 @@ export const roomByHotel = async (hotel: string) => {
     const resx = await db.query({
       query: `FOR u IN @@coll
        FILTER u.hotel == @hotel
-
+       
             LET category = (
               FOR c IN category
                 FILTER c._key == u.category
@@ -68,7 +75,7 @@ export const roomByHotel = async (hotel: string) => {
 export const roomById = async (key: string) => {
   const db = cacheConnection();
   try {
-    await getCollection("hotel", db);
+    await getCollection("room", db);
     const resx = await db.query({
       query: `FOR u IN @@coll
        FILTER u._key == @key
@@ -177,7 +184,7 @@ export const updateRoom = async (
 export const delRoom = async (key: string) => {
   const db = cacheConnection();
   try {
-    await getCollection("hotel", db);
+    await getCollection("room", db);
     const resx = await db.query({
       query: `FOR u IN @@coll
         FILTER u._key == @key

@@ -1,27 +1,16 @@
-import { Bath, Bed, Price } from "@/components/Icons";
-import { RoomT } from "@/types";
-import Link from "next/link";
+import { RoomT, StatusT } from "@/types";
 import ImageLoader from "@/components/Layout/ImageLoader";
 import { currencyFormator } from "@/lib/currencyFormat";
 import { documentById } from "@/lib/listFunc";
+import CardStatus, { CardCheckoutStatus } from "@/lib/cardStatus";
 interface Props {
   data: RoomT;
 }
 
 const RoomCard = (props: Props) => {
-  const action = (data: RoomT) => {
-    documentById(data?._key as string)?.showModal?.();
-  };
   return (
     <div className="flex bg-white w-full transition hover:shadow border">
-      <div className="rotate-180 p-2 [writing-mode:_vertical-lr]">
-        <div className="flex items-center justify-between gap-4 text-xs font-bold uppercase text-gray-900">
-          <span>-</span>
-          <span className="w-px flex-1 bg-gray-900/10"></span>
-          <span>-</span>
-        </div>
-      </div>
-
+      <CardStatus status={props?.data?.status as StatusT} />
       <div className="w-full basis-44">
         <div className="aspect-square h-full w-full object-cover">
           <ImageLoader imageSource={""} />
@@ -85,26 +74,7 @@ const RoomCard = (props: Props) => {
           </div>
         </div>
 
-        <div className="sm:flex sm:items-end sm:justify-end">
-          <div className="block  px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition">
-            <span className="">
-              {props.data.price && props.data.hotel?.currency
-                ? currencyFormator({
-                    style: "currency",
-                    currency: props?.data?.hotel?.currency,
-                  })?.format?.(props?.data?.price)
-                : null}
-            </span>
-          </div>
-        </div>
-        <div className="sm:flex sm:items-end sm:justify-end">
-          <button
-            onClick={() => action(props.data)}
-            className="block bg-green-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-green-400"
-          >
-            Secure Yours Now{" "}
-          </button>
-        </div>
+        <CardCheckoutStatus data={props.data} />
       </div>
     </div>
   );

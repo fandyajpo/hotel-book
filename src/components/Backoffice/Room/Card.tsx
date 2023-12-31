@@ -13,7 +13,7 @@ const RoomCard = (props: Props) => {
       <div className="rotate-180 p-2 [writing-mode:_vertical-lr]">
         <div className="flex items-center justify-between gap-4 text-xs font-bold uppercase text-gray-900">
           <span>-</span>
-          <span className="w-px flex-1 bg-gray-900/10"></span>
+          <span>{props.data.status}</span>
           <span>-</span>
         </div>
       </div>
@@ -86,7 +86,7 @@ const RoomCard = (props: Props) => {
             href={`/bo/hotel/${props.data?.hotel?._key}/room/${props.data?._key}`}
             className="block bg-yellow-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-yellow-400"
           >
-            Review
+            Update
           </Link>
         </div>
       </div>

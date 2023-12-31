@@ -1,13 +1,10 @@
 "use client";
-import { RoomT } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { client } from "@/lib/axios";
 import { useSearchParams, useParams } from "next/navigation";
 import Paging from "@/components/Layout/Pagination";
 import Header from "../Header";
 import { useDeferredValue } from "react";
-import RoomCard from "./Card";
-import { LoadingSVG } from "@/components/Icons";
 
 const RoomTable = () => {
   const { get } = useSearchParams();
@@ -40,7 +37,7 @@ const RoomTable = () => {
     <div className="space-y-2">
       <Header title="Room List" total={data?.data?.total} />
 
-      {isLoading ? (
+      {/* {isLoading ? (
         <div className="py-8">
           <LoadingSVG className="w-8 h-8" />
         </div>
@@ -50,7 +47,7 @@ const RoomTable = () => {
         ))
       ) : (
         search?.data?.map?.((a: RoomT) => <RoomCard key={a._key} data={a} />)
-      )}
+      )} */}
 
       <Paging
         total={Number(data?.data?.total)}

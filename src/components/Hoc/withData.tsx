@@ -1,7 +1,7 @@
 "use client";
 import { client } from "@/lib/axios";
 import { UpdateMethod } from "@/types";
-import { QueryKey, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { NextComponentType } from "next";
 import { useParams } from "next/navigation";
 
@@ -17,7 +17,7 @@ const withData = <T,>(
   const WrappedComponent = (props: UpdateMethod<T>) => {
     const params = useParams();
     const { data, isLoading } = useQuery({
-      queryKey: [requirement.queryKey, params?.key, params?.id],
+      queryKey: [requirement.queryKey, params?.id, params?.key],
       queryFn: () =>
         client.get(
           `api/${requirement?.apiScope}/${params?.id || params?.key}`,

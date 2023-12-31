@@ -15,7 +15,7 @@ export type ArangoDataT = {
 
 export type Slug = { slug?: string };
 
-export type StatusT = "AVAILABLE" | "DRAFT";
+export type StatusT = "AVAILABLE" | "DRAFT" | "BOOKED";
 export type CurrencyT = "IDR" | "AUD" | "USD" | "THB" | "SGD" | "EUR" | "GBP";
 
 export type HotelT = {
@@ -57,3 +57,19 @@ export type RoomT = {
   facilities?: Array<string>;
 } & ArangoDataT &
   Slug;
+
+export type SecureFormT = {
+  checkIn: string;
+  checkOut: string;
+  guest: number;
+  email: string;
+  phone: string;
+};
+
+export type OrderT = {
+  amount: number;
+  transactionUrl: string;
+  hotel: HotelT;
+  room: RoomT;
+} & ArangoDataT &
+  SecureFormT;
