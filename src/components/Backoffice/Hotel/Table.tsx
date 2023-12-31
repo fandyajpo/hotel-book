@@ -16,7 +16,7 @@ const HotelTable = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["hotels", get("page")],
     queryFn: () =>
-      client.get(`api/hotel?page=${get("page") || 1}&limit=9&status=DRAFT`, {
+      client.get(`api/hotel?page=${get("page") || 1}&limit=9`, {
         method: "GET",
       }),
     enabled: !deferQuery,

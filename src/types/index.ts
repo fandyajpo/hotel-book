@@ -72,7 +72,7 @@ export type SecureFormT = {
   room?: RoomT;
 };
 
-export type OrderT = {
+export type BookingT = {
   amount: number;
   transactionUrl: string;
   hotel: HotelT;
