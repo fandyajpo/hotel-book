@@ -63,7 +63,7 @@ const LocationForm = (props?: Option) => {
   );
 
   return (
-    <div className="border w-full border-gray-300 rounded">
+    <div className="border w-full border-gray-300 bg-white/50 rounded">
       <form onSubmit={submit} className="w-96  p-4 space-y-2">
         <Title title="Location" />
         {props?.data?.slug ? (

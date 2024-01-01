@@ -5,7 +5,7 @@ const MenuSelector = () => {
   const segment = useSelectedLayoutSegment();
   const params = useParams();
   return (
-    <div className="border p-4 space-x-2 rounded">
+    <div className="border p-4 space-x-2 rounded bg-white/50">
       <Link
         href={`/bo/hotel/${params.key}`}
         className={`${

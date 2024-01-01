@@ -28,15 +28,15 @@ const AuthForm = () => {
   });
 
   return (
-    <div className="flex items-center justify-center h-96">
+    <div className="flex items-center justify-center h-full">
       <form onSubmit={onSubmit}>
         <Controller
           control={control}
           name="email"
           render={({ field }) => (
-            <div className="flex flex-col gap-2">
-              <label>Email</label>
-              <input type="text" {...field} />
+            <div className="flex flex-col gap-2 w-80">
+              <label className="text-white">Email</label>
+              <input placeholder="Email" type="text" {...field} />
             </div>
           )}
         />
@@ -44,9 +44,9 @@ const AuthForm = () => {
           control={control}
           name="password"
           render={({ field }) => (
-            <div className="flex flex-col gap-2">
-              <label>Password</label>
-              <input type="password" {...field} />
+            <div className="flex flex-col gap-2 w-80">
+              <label className="text-white">Password</label>
+              <input placeholder="Password" type="password" {...field} />
             </div>
           )}
         />

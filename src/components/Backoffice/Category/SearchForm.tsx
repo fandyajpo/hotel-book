@@ -5,7 +5,7 @@ const SearchForm = () => {
   const { push } = useRouter();
 
   return (
-    <div className="border rounded border-gray-300 p-4 flex items-center justify-between">
+    <div className="border rounded border-gray-300 bg-white/50 p-4 flex items-center justify-between">
       <input
         placeholder="Search Category"
         onChange={(e) =>

@@ -49,7 +49,7 @@ const CategoryTable = () => {
           <LoadingSVG className="w-8 h-8" />
         </div>
       ) : (
-        <table className="table-auto border w-full">
+        <table className="table-auto border w-full bg-white/50">
           <thead>
             <tr className="border">
               <th className="border">Name</th>
@@ -64,7 +64,7 @@ const CategoryTable = () => {
                     <td className="border py-2 px-4">{a.name}</td>
                     <td className="border">
                       <button
-                        className="text-blue-500 p-2"
+                        className="text-black p-2"
                         onClick={() => action(a)}
                       >
                         <svg
@@ -94,7 +94,7 @@ const CategoryTable = () => {
                     <td className="border py-2 px-4">{a.name}</td>
                     <td className="border">
                       <button
-                        className="text-blue-500 p-2"
+                        className="text-black p-2"
                         onClick={() => action(a)}
                       >
                         <svg

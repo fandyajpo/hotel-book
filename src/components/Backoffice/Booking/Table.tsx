@@ -4,12 +4,13 @@ import { client } from "@/lib/axios";
 import { useSearchParams } from "next/navigation";
 import Paging from "@/components/Layout/Pagination";
 import Header from "../Header";
-import { BookingT } from "@/types";
+import { BookingT, StatusT } from "@/types";
 import Modal from "@/components/Arch/Modal";
 import ProcessModalBook from "./ProcessModalBook";
 import { documentById } from "@/lib/listFunc";
 import DateFilter from "./DateFilter";
 import Link from "next/link";
+import { HotelStatus } from "@/lib/cardStatus";
 const BookingHotel = () => {
   const { get } = useSearchParams();
   const { data } = useQuery({
@@ -29,7 +30,7 @@ const BookingHotel = () => {
     <div className="space-y-2">
       <Header title="Booking List" total={data?.data?.total} />
       <DateFilter />
-      <table className="table-auto border w-full">
+      <table className="table-auto border w-full bg-white/50">
         <thead>
           <tr className="border">
             <th className="border">Room Name</th>
@@ -58,7 +59,7 @@ const BookingHotel = () => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-6 h-6 text-blue-500"
+                        className="w-6 h-6 text-white"
                       >
                         <path
                           strokeLinecap="round"
@@ -71,7 +72,10 @@ const BookingHotel = () => {
                 </td>
                 <td className="border">
                   <div className="flex items-center justify-between p-2">
-                    <p className="p-2">{a?.hotel?.name}</p>
+                    <div>
+                      <p className="p-2">{a?.hotel?.name}</p>
+                      <HotelStatus status={a?.hotel?.status as StatusT} />
+                    </div>
                     <Link href={`/bo/hotel/${a?.hotel?._key}`}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +83,7 @@ const BookingHotel = () => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-6 h-6 text-blue-500"
+                        className="w-6 h-6 text-white"
                       >
                         <path
                           strokeLinecap="round"

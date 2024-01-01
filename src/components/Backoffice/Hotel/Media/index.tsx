@@ -48,7 +48,7 @@ const HotelMedia = (props: Media) => {
 
   return (
     <div className="relative">
-      <div className="border border-gray-300 p-4 rounded space-y-2 z-20">
+      <div className="border border-gray-300 p-4 bg-white/50 rounded space-y-2 z-20">
         <Title title="Hotel Media" />
         {isPending ? (
           <LoadingSVG className="w-6 h-6" />
