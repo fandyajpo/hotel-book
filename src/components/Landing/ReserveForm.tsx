@@ -21,7 +21,11 @@ const ReserveForm = () => {
 
   const onSubmit = handleSubmit((data: ReserveFormT) => {
     return push(
-      `/location/${data.location.value}?checkin=${data.checkIn}&checkout=${data.checkOut}&guest=${data.guest}&page=1`
+      `/location/${data?.location?.value}?checkin=${new Date(
+        data.checkIn
+      ).toISOString()}&checkout=${new Date(
+        data.checkOut
+      ).toISOString()}&guest=${data.guest}&page=1`
     );
   });
 

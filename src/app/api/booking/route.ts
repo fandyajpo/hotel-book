@@ -17,6 +17,8 @@ export async function GET(req: Request) {
 
     const page = searchParams.get("page");
     const limit = searchParams.get("limit");
+    const checkIn = searchParams.get("checkIn");
+    const checkOut = searchParams.get("checkOut");
 
     const rPage = Number(page) - 1;
 
@@ -26,7 +28,12 @@ export async function GET(req: Request) {
         message: "provide limit and page number",
       });
 
-    const cat = await listBooking(rPage * Number(limit), Number(limit));
+    const cat = await listBooking(
+      rPage * Number(limit),
+      Number(limit),
+      String(checkIn),
+      String(checkOut)
+    );
     return NextResponse.json(cat);
   } catch (err) {
     return NextResponse.json(err);

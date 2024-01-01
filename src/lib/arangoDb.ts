@@ -5,7 +5,7 @@ import { Database, aql } from "arangojs";
 const getConnection = () => {
   try {
     const conn = new Database({
-      loadBalancingStrategy: "ONE_RANDOM",
+      loadBalancingStrategy: "ROUND_ROBIN",
       url: process.env.ARANGO_ENPOINT,
       databaseName: process.env.ARANGO_DATABASE!,
       auth: {

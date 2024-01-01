@@ -1,7 +1,7 @@
 "use client";
-import { RoomT, SecureFormT } from "@/types";
+import { BookingT, RoomT } from "@/types";
 import { useForm, Controller } from "react-hook-form";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { documentById } from "@/lib/listFunc";
 import { useMutation } from "@tanstack/react-query";
 import { client } from "@/lib/axios";
@@ -12,8 +12,9 @@ interface Props {
 }
 
 const SecureAlert = (props: Props) => {
+  const pathname = usePathname();
   const { get } = useSearchParams();
-  const { control, handleSubmit } = useForm<SecureFormT>({
+  const { control, handleSubmit } = useForm<BookingT>({
     defaultValues: {
       checkIn: String(get("checkin")),
       checkOut: String(get("checkout")),
@@ -22,17 +23,23 @@ const SecureAlert = (props: Props) => {
   });
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: (data: SecureFormT) =>
+    mutationFn: (data: BookingT) =>
       client.post("api/booking", {
         ...data,
+        checkIn: new Date(data.checkIn).toISOString(),
+        checkOut: new Date(data.checkOut).toISOString(),
         room: props?.room?._key,
         guest: Number(data.guest),
-      }),
+        hotel: props?.room?.hotel?._key,
+        amount: props?.room?.price,
+        transactionUrl: pathname,
+        currency: props?.room?.hotel?.currency,
+      } as BookingT),
     mutationKey: ["createBooking"],
     onSuccess: () => documentById("congrats")?.showModal?.(),
   });
 
-  const onSubmit = handleSubmit(async (data: SecureFormT) => {
+  const onSubmit = handleSubmit(async (data: BookingT) => {
     await mutateAsync(data);
     return documentById(props?.room?._key as string)?.close?.();
   });
@@ -41,6 +48,24 @@ const SecureAlert = (props: Props) => {
     <div className="p-4">
       <form className="flex flex-col w-full space-y-2" onSubmit={onSubmit}>
         <p className="font-semibold">{props.room.name}</p>
+        <Controller
+          rules={{
+            required: true,
+          }}
+          control={control}
+          render={({ field }) => (
+            <div className="w-full">
+              <label className="text-white sm:text-black">Username</label>
+              <input
+                placeholder="Username"
+                className="w-full p-2 rounded-md"
+                type="text"
+                {...field}
+              />
+            </div>
+          )}
+          name="username"
+        />
         <Controller
           rules={{
             required: true,

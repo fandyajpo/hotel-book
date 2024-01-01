@@ -1,7 +1,8 @@
 import { Bath, Bed, Price } from "@/components/Icons";
-import { RoomT } from "@/types";
+import { RoomT, StatusT } from "@/types";
 import Link from "next/link";
 import ImageLoader from "@/components/Layout/ImageLoader";
+import CardStatus from "@/lib/cardStatus";
 
 interface Props {
   data: RoomT;
@@ -10,13 +11,7 @@ interface Props {
 const RoomCard = (props: Props) => {
   return (
     <div className="flex bg-white w-full transition hover:shadow border">
-      <div className="rotate-180 p-2 [writing-mode:_vertical-lr]">
-        <div className="flex items-center justify-between gap-4 text-xs font-bold uppercase text-gray-900">
-          <span>-</span>
-          <span>{props.data.status}</span>
-          <span>-</span>
-        </div>
-      </div>
+      <CardStatus status={props?.data?.status as StatusT} />
 
       <div className="w-full basis-44">
         <div className="aspect-square h-full w-full object-cover">

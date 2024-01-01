@@ -1,9 +1,14 @@
 "use server";
 
 import { cacheConnection, getCollection } from "@/lib/arangoDb";
-import { SecureFormT } from "@/types";
+import { BookingT, SecureFormT, StatusT } from "@/types";
 
-export const listBooking = async (page: number, limit: number) => {
+export const listBooking = async (
+  page: number,
+  limit: number,
+  checkIn: string,
+  checkOut: string
+) => {
   const db = cacheConnection();
   try {
     await getCollection("booking", db);
@@ -11,18 +16,22 @@ export const listBooking = async (page: number, limit: number) => {
       query: `
       LET data = (
         FOR p IN @@coll
+        FILTER p.checkIn >= DATE_ISO8601(@checkIn) && p.checkOut <= DATE_ISO8601(@checkOut)
+
         LET roo = (
           FOR c IN room
           FILTER c._key == p.room
-          LET hot = (
-            FOR h IN hotel
-              FILTER h._key == c.hotel
-              RETURN h
-          )
-          RETURN MERGE(c, {hotel:FIRST(hot)}) 
+          RETURN c
         )
+
+        LET hot = (
+          FOR h IN hotel
+          FILTER h._key == p.hotel
+          RETURN h
+        )
+
         LIMIT ${page}, ${limit}
-        RETURN MERGE(p, {room:FIRST(roo)})
+        RETURN MERGE(p, {room:FIRST(roo), hotel:FIRST(hot)})
       )
       LET total = (
         FOR p IN @@coll
@@ -31,7 +40,11 @@ export const listBooking = async (page: number, limit: number) => {
       )
       RETURN { total, data }
       `,
-      bindVars: { "@coll": "booking" },
+      bindVars: {
+        "@coll": "booking",
+        checkIn,
+        checkOut,
+      },
     });
     const result = await resx.all();
     return result[0];
@@ -42,7 +55,7 @@ export const listBooking = async (page: number, limit: number) => {
   }
 };
 
-export const createBooking = async (data: SecureFormT) => {
+export const createBooking = async (data: BookingT) => {
   const db = cacheConnection();
   try {
     await getCollection("booking", db);
@@ -53,7 +66,12 @@ export const createBooking = async (data: SecureFormT) => {
           email: @email,
           guest: @guest,
           phone: @phone,
-          room: @room
+          room: @room,
+          transactionUrl: @transactionUrl,
+          amount: @amount,
+          hotel: @hotel,
+          currency: @currency,
+          username:@username
         } IN @@coll RETURN NEW`,
       bindVars: {
         "@coll": "booking",
@@ -63,7 +81,12 @@ export const createBooking = async (data: SecureFormT) => {
         guest: data?.guest || "",
         phone: data?.phone || "",
         room: data?.room || "",
-      } as SecureFormT,
+        transactionUrl: data?.transactionUrl || "",
+        amount: Number(data?.amount) || 0,
+        hotel: data?.hotel || "",
+        currency: data?.currency || "IDR",
+        username: data?.username || "",
+      } as BookingT,
     });
     return { success: true };
   } catch (error) {
@@ -81,6 +104,66 @@ export const bookingById = async (key: string) => {
       query: `FOR u IN @@coll
                FILTER u._key == @key
                RETURN u`,
+      bindVars: { "@coll": "booking", key: key },
+    });
+    const result = await resx.all();
+    return result?.[0];
+  } catch (error) {
+    throw error;
+  } finally {
+    db.close();
+  }
+};
+
+export const updateBookingStatus = async (
+  bookId: string,
+  roomId: string,
+  status: StatusT
+) => {
+  const db = cacheConnection();
+  const booking = db.collection("booking");
+  const room = db.collection("room");
+  const trx = await db.beginTransaction({
+    read: ["booking"],
+    write: ["booking", "room"],
+  });
+
+  try {
+    await trx.step(() => {
+      return booking.update(
+        { _key: bookId, _id: `booking/${bookId}` },
+        { status: "BOOKED" }
+      );
+    });
+    await trx.step(() => {
+      return room.update(
+        { _key: roomId, _id: `room/${roomId}` },
+        { status: "BOOKED" }
+      );
+    });
+
+    await trx.commit();
+    return { success: true };
+  } catch (error) {
+    await trx.abort();
+    throw error;
+  } finally {
+    db.close();
+  }
+};
+
+export const delBook = async (key: string) => {
+  const db = cacheConnection();
+  try {
+    await getCollection("booking", db);
+    const resx = await db.query({
+      query: `FOR u IN @@coll
+        FILTER u._key == @key
+          REMOVE {
+            _key: @key
+          }
+        IN @@coll
+        RETURN OLD`,
       bindVars: { "@coll": "booking", key: key },
     });
     const result = await resx.all();

@@ -69,13 +69,14 @@ export type SecureFormT = {
   guest: number;
   email: string;
   phone: string;
-  room?: RoomT;
 };
 
 export type BookingT = {
-  amount: number;
-  transactionUrl: string;
-  hotel: HotelT;
-  room: RoomT;
+  username: string;
+  currency: CurrencyT;
+  amount?: number;
+  transactionUrl?: string;
+  hotel?: HotelT;
+  room?: RoomT;
 } & ArangoDataT &
   SecureFormT;
