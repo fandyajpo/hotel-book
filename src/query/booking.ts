@@ -14,10 +14,12 @@ export const listBooking = async (
     await getCollection("booking", db);
     const resx = await db.query({
       query: `
+
+      
       LET data = (
         FOR p IN @@coll
-        FILTER p.checkIn >= DATE_ISO8601(@checkIn) && p.checkOut <= DATE_ISO8601(@checkOut)
-
+        FILTER !(@checkIn && @checkOut) || (p.checkIn >= DATE_ISO8601(@checkIn) && p.checkOut <= DATE_ISO8601(@checkOut))
+         
         LET roo = (
           FOR c IN room
           FILTER c._key == p.room
@@ -35,6 +37,7 @@ export const listBooking = async (
       )
       LET total = (
         FOR p IN @@coll
+          FILTER !(@checkIn && @checkOut) || (p.checkIn >= DATE_ISO8601(@checkIn) && p.checkOut <= DATE_ISO8601(@checkOut))
           COLLECT WITH COUNT INTO length
         return length
       )

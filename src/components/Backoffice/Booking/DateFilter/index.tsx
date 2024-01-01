@@ -22,16 +22,14 @@ const DateFilter = () => {
     return router.push(
       pathname +
         "?" +
-        `checkIn=${data.checkIn}&checkOut=${data.checkOut}&page=${get("page")}`
+        `checkIn=${data.checkIn}&checkOut=${data.checkOut}&page=1`
     );
   });
 
   const clearFilter = () => {
     reset({ checkIn: undefined, checkOut: undefined });
 
-    return router.push(
-      pathname + "?" + `checkIn=&checkOut=&page=${get("page")}`
-    );
+    return router.push(pathname + "?" + `checkIn=&checkOut=&page=1`);
   };
 
   return (
