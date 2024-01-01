@@ -1,4 +1,3 @@
-import { Bath, Bed, Price } from "@/components/Icons";
 import { RoomT, StatusT } from "@/types";
 import Link from "next/link";
 import ImageLoader from "@/components/Layout/ImageLoader";
@@ -15,7 +14,7 @@ const RoomCard = (props: Props) => {
 
       <div className="w-full basis-44">
         <div className="aspect-square h-full w-full object-cover">
-          <ImageLoader imageSource={""} />
+          <ImageLoader imageSource={props?.data?.image?.[0]?.url} />
         </div>
       </div>
 

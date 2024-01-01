@@ -30,7 +30,7 @@ const RoomMedia = (props: Media) => {
     mutationKey: ["updateRoomMedia"],
     mutationFn: (image) =>
       client.patch(
-        `api/room/${params?.key}/media`,
+        `api/room/${params?.id}/media`,
         {
           image: image,
         },

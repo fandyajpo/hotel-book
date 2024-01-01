@@ -16,8 +16,13 @@ const BookDelete = (props: Props) => {
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["delCat"],
-
-    mutationFn: () => client.delete(`api/booking/${props?.data?._key}`),
+    mutationFn: () =>
+      client.delete(`api/booking/${props?.data?._key}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
     onSuccess: () => {
       documentById(props.data?._key as string)?.close?.();
       return queryClient.invalidateQueries({

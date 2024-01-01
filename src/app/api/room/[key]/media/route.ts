@@ -9,12 +9,11 @@ export async function PATCH(
 ) {
   try {
     const body = await req.json();
-
     if (!body.image) return { success: false, message: "No image provide" };
 
     const upload = await imageKit.upload({
       file: body.image,
-      fileName: "test",
+      fileName: "room",
     });
 
     const updateMedia = await updateRoomMedia(params.key, {

@@ -1,5 +1,12 @@
 import Navigation from "@/components/Backoffice/Navigation";
 import SecureRoute from "@/provider/SecureRoute";
+import { Metadata } from "next/types";
+
+export const metadata: Metadata = {
+  title: "ELB Admin",
+  description: "East Land Bali",
+};
+
 export default function RootLayout({
   children,
 }: {

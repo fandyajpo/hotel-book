@@ -3,6 +3,8 @@ import { useForm, Controller } from "react-hook-form";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/Firebase";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { LoadingSVG } from "@/components/Icons";
 
 type Auth = {
   email: string;
@@ -11,18 +13,16 @@ type Auth = {
 
 const AuthForm = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const { control, handleSubmit } = useForm<Auth>({ mode: "onChange" });
 
   const onSubmit = handleSubmit(async (data: Auth) => {
     try {
-      const login = await signInWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
-
+      setLoading(true);
+      await signInWithEmailAndPassword(auth, data.email, data.password);
       return router.replace("/bo/hotel?page=1");
     } catch (err) {
+      setLoading(false);
       return console.log("ERROR : ", err);
     }
   });
@@ -54,7 +54,7 @@ const AuthForm = () => {
           type="submit"
           className="bg-blue-500 w-full my-2 h-10 text-white"
         >
-          Login
+          {loading ? <LoadingSVG className="w-6 h-6" /> : "Login"}
         </button>
       </form>
     </div>
