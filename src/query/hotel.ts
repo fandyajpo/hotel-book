@@ -323,7 +323,7 @@ export const updateHotelMediaPosition = async (
       query: `LET f = DOCUMENT(@@coll, @key)
       FILTER f != null
       UPDATE f WITH { 
-        image: @slug,
+        image: @image,
       }
       IN @@coll`,
       bindVars: {

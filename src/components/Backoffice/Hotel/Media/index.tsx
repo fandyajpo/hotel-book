@@ -5,7 +5,7 @@ import { queryClient } from "@/provider/TanstackQuery";
 import Image from "next/image";
 import { useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useMemo } from "react";
 import { ImageKitFileT } from "@/lib/imageKit";
 import { LoadingSVG } from "@/components/Icons";
 import Title from "../../../Arch/Title";
@@ -37,9 +37,11 @@ const HotelMedia = (props: Media) => {
         },
         {
           method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       ),
-
     onSuccess: () =>
       queryClient.invalidateQueries({
         queryKey: ["hotel"],
@@ -50,12 +52,16 @@ const HotelMedia = (props: Media) => {
     <div className="relative">
       <div className="border border-gray-300 p-4 bg-white/90 rounded space-y-2 z-20">
         <Title title="Hotel Media" />
+
         {isPending ? (
           <LoadingSVG className="w-6 h-6" />
         ) : (
-          <input onChange={onChange} accept="image/*" type="file" />
+          <>
+            <Test image={props?.media as ImageKitFileT[]} />
+            <input onChange={onChange} accept="image/*" type="file" />
+          </>
         )}
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           {props?.media?.map((a: ImageKitFileT) => (
             <div className="w-24 h-24 relative" key={a?.name}>
               <Image
@@ -66,7 +72,7 @@ const HotelMedia = (props: Media) => {
               />
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import imageKit from "@/lib/imageKit";
-import { updateHotelMedia } from "@/query/hotel";
+import { updateHotelMedia, updateHotelMediaPosition } from "@/query/hotel";
 import { Params } from "@/types";
 import { NextResponse } from "next/server";
 
@@ -10,7 +10,15 @@ export async function PATCH(
   try {
     const body = await req.json();
 
+    if (body.hasOwnProperty("method") && body.method === "DELETE_IMAGE") {
+    }
+
     if (body.hasOwnProperty("method") && body.method === "SAVE_POSITION") {
+      const updatePosition = await updateHotelMediaPosition(
+        params?.key,
+        body.image
+      );
+      return NextResponse.json(updatePosition);
     }
 
     if (!body.image) return { success: false, message: "No image provide" };

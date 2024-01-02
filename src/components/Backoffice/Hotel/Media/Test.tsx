@@ -1,50 +1,74 @@
+"use client";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
-  verticalListSortingStrategy,
+  horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { useState } from "react";
 import { SortableItem } from "./SortImage";
+import { ImageKitFileT } from "@/lib/imageKit";
+import { useMutation } from "@tanstack/react-query";
+import { client } from "@/lib/axios";
+import { useParams } from "next/navigation";
+import { LoadingSVG } from "@/components/Icons";
+interface Props {
+  image: ImageKitFileT[];
+}
 
-function Test() {
-  const [languages, setLanguages] = useState([
-    "JavaScript",
-    "Python",
-    "TypeScript",
-  ]);
+function Test(props: Props) {
+  const params = useParams();
+  const [images, setImages] = useState(props?.image);
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["updateHotelImagePosition"],
+    mutationFn: () =>
+      client.patch(
+        `api/hotel/${params?.key}/media`,
+        {
+          method: "SAVE_POSITION",
+          image: images,
+        },
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ),
+  });
 
   return (
-    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <div className="p-3" style={{ width: "50%" }}>
-        <h3>The best programming languages!</h3>
+    <div className="relative">
+      {isPending ? (
+        <div className="w-full h-full bg-white/70 absolute z-20 flex justify-center items-center">
+          <LoadingSVG className="text-black w-12 h-12" />
+        </div>
+      ) : null}
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext
-          items={languages}
-          strategy={verticalListSortingStrategy}
+          items={images}
+          strategy={horizontalListSortingStrategy}
         >
-          {languages.map((language) => (
-            <SortableItem key={language} id={language} />
-          ))}
+          <div className="flex gap-2 flex-none overflow-x-auto w-full">
+            {images.map((im) => (
+              <SortableItem key={im.id} image={im} />
+            ))}
+          </div>
         </SortableContext>
-      </div>
-    </DndContext>
+      </DndContext>
+    </div>
   );
 
   function handleDragEnd(event: any) {
-    console.log("Drag end called");
     const { active, over } = event;
-    console.log("ACTIVE: " + active.id);
-    console.log("OVER :" + over.id);
-
     if (active.id !== over.id) {
-      setLanguages((items) => {
-        const activeIndex = items.indexOf(active.id);
-        const overIndex = items.indexOf(over.id);
-        console.log(arrayMove(items, activeIndex, overIndex));
+      setImages((items) => {
+        const activeIndex = items.findIndex((item) => item.id === active.id);
+        const overIndex = items.findIndex((item) => item.id === over.id);
         return arrayMove(items, activeIndex, overIndex);
-        // items: [2, 3, 1]   0  -> 2
-        // [1, 2, 3] oldIndex: 0 newIndex: 2  -> [2, 3, 1]
       });
+      mutate();
     }
   }
 }
