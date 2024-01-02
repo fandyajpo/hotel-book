@@ -2,6 +2,7 @@
 import { auth } from "@/lib/Firebase";
 import { signOut } from "firebase/auth";
 import Link from "next/link";
+import { useStore } from "@/store";
 import { useSelectedLayoutSegment } from "next/navigation";
 const url = [
   { name: "Hotel", url: "/bo/hotel?page=1" },
@@ -12,9 +13,11 @@ const url = [
 ];
 
 const Navigation = () => {
+  const { user } = useStore();
   const segments = useSelectedLayoutSegment();
   return (
     <div className="flex flex-col gap-4 p-2 z-30">
+      <p className="text-white">{user ? user?.email : null}</p>
       {segments !== "auth" && (
         <>
           {url?.map((a) => (

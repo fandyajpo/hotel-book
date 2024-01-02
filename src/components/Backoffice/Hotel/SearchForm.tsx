@@ -1,7 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-const SearchForm = () => {
+interface Props {
+  total: any;
+}
+const SearchForm = (props: Props) => {
   const { push } = useRouter();
 
   return (
@@ -12,6 +15,7 @@ const SearchForm = () => {
           push(`/bo/hotel?q=${encodeURIComponent(e?.target?.value)}`)
         }
       />
+      <p>{props.total}</p>
     </div>
   );
 };

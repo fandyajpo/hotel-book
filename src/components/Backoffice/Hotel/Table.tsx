@@ -34,7 +34,7 @@ const HotelTable = () => {
 
   return (
     <>
-      <SearchForm />
+      <SearchForm total={data?.data?.total} />
       {isLoading || searchLoading ? (
         <div className="py-8">
           <LoadingSVG className="w-8 h-8 text-white" />
