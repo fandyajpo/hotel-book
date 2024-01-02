@@ -14,6 +14,12 @@ const nextConfig = {
         port: "",
         pathname: "/fanvercel/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };
