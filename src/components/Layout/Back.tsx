@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 const Back = () => {
   const router = useRouter();
   return (
-    <div className="w-full bg-white border border-gray-300 rounded-full h-12 flex items-center">
+    <div className="w-full bg-white border border-gray-300 rounded-full h-14 flex items-center">
       <button
         type="button"
         className="flex items-center px-4 hover:underline"
@@ -23,7 +23,7 @@ const Back = () => {
             d="M15.75 19.5 8.25 12l7.5-7.5"
           />
         </svg>
-        <p className="font-semibold">Go back</p>
+        <p className="font-semibold">Back</p>
       </button>
     </div>
   );

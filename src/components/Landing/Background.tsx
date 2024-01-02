@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import Fuji from "../../../public/landing.jpg";
+import Fuji from "../../../public/landing.jpeg";
 import Layer from "../Layout/Layer";
 import { ArrowDown } from "../Icons";
 import ReserveForm from "./ReserveForm";

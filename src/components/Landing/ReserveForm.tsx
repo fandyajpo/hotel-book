@@ -54,7 +54,7 @@ const ReserveForm = () => {
   return (
     <>
       <form
-        className="grid grid-cols-2 gap-4 sm:grid-cols-4"
+        className="grid grid-cols-2 gap-4 sm:grid-cols-4 rounded-xl py-4"
         onSubmit={onSubmit}
       >
         <Controller
@@ -64,8 +64,8 @@ const ReserveForm = () => {
           control={control}
           name="checkIn"
           render={({ field }) => (
-            <div className="w-full">
-              <label className="text-white sm:text-black">Check in</label>
+            <div className="w-full bg-white border border-gray-300 p-2 rounded-xl">
+              <label className=" sm:text-black">Check in</label>
               <input
                 type="date"
                 {...field}
@@ -82,8 +82,8 @@ const ReserveForm = () => {
           control={control}
           name="checkOut"
           render={({ field }) => (
-            <div className="w-full">
-              <label className="text-white sm:text-black">Check out</label>
+            <div className="w-full bg-white border border-gray-300 p-2 rounded-xl">
+              <label className=" sm:text-black">Check out</label>
               <input
                 type="date"
                 {...field}
@@ -100,8 +100,8 @@ const ReserveForm = () => {
           control={control}
           name="location"
           render={({ field }) => (
-            <div className="w-full">
-              <label className="text-white sm:text-black">Location</label>
+            <div className="w-full bg-white border border-gray-300 p-2 rounded-xl">
+              <label className=" sm:text-black">Location</label>
               <AsyncSelect
                 menuPortalTarget={
                   typeof document !== "undefined" &&
@@ -118,7 +118,7 @@ const ReserveForm = () => {
                   }),
                 }}
                 isSearchable
-                placeholder="Find Category"
+                placeholder="Location"
                 defaultOptions={data?.data?.map?.((a: LocationT) => ({
                   label: a?.name,
                   value: a?.slug,
@@ -138,8 +138,8 @@ const ReserveForm = () => {
           control={control}
           name="guest"
           render={({ field }) => (
-            <div className="w-full">
-              <label className="text-white sm:text-black">Guest</label>
+            <div className="w-full bg-white border border-gray-300 p-2 rounded-xl">
+              <label className=" sm:text-black">Guest</label>
               <input
                 type="number"
                 {...field}
