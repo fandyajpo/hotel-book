@@ -16,14 +16,14 @@ export async function generateMetadata(
 
   return {
     title: `${result?.name} | EastLandBali` || "Location",
-    description: result.name || "No Description",
+    description: result?.description || "No Description",
     openGraph: {
       title: `${result?.name} | EastLandBali` || "Location",
-      description: result.name || "No Description",
+      description: result?.description || "No Description",
     },
     twitter: {
       title: `${result?.name} | EastLandBali` || "Location",
-      description: result.name || "No Description",
+      description: result?.description || "No Description",
     },
   };
 }
