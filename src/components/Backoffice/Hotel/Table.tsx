@@ -37,7 +37,7 @@ const HotelTable = () => {
       <SearchForm />
       {isLoading || searchLoading ? (
         <div className="py-8">
-          <LoadingSVG className="w-8 h-8" />
+          <LoadingSVG className="w-8 h-8 text-white" />
         </div>
       ) : null}
       <div className="grid grid-cols-3 gap-2">

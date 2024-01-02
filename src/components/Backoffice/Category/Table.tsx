@@ -46,10 +46,10 @@ const CategoryTable = () => {
       <SearchForm />
       {isLoading || searchLoading ? (
         <div className="py-8">
-          <LoadingSVG className="w-8 h-8" />
+          <LoadingSVG className="w-8 h-8 text-white" />
         </div>
       ) : (
-        <table className="table-auto border w-full bg-white/50">
+        <table className="table-auto border w-full bg-white/90">
           <thead>
             <tr className="border">
               <th className="border">Name</th>

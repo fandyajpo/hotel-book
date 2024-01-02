@@ -3,7 +3,7 @@ import Link from "next/link";
 import { HotelStatus } from "@/lib/cardStatus";
 const HotelCard = (props: HotelT) => {
   return (
-    <div className="bg-white/50 border border-gray-300 h-44 rounded p-4 flex justify-between">
+    <div className="bg-white/90 border border-gray-300 h-44 rounded p-4 flex justify-between">
       <div>
         <p className="text-gray-700">{props.name}</p>
         <HotelStatus status={props?.status as StatusT} />

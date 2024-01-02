@@ -145,7 +145,7 @@ const HotelForm = (props?: Option) => {
 
       <form
         onSubmit={submit}
-        className="border rounded border-gray-300 p-4 space-y-2 bg-white/50"
+        className="border rounded border-gray-300 p-4 space-y-2 bg-white/90"
       >
         <Title title="Hotel Profile" />
         {props?.data?.slug ? (

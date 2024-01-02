@@ -42,7 +42,7 @@ const RoomTable = () => {
 
       {isLoading ? (
         <div className="py-8">
-          <LoadingSVG className="w-8 h-8" />
+          <LoadingSVG className="w-8 h-8 text-white" />
         </div>
       ) : !deferQuery ? (
         data?.data?.data?.map?.((a: RoomT) => (

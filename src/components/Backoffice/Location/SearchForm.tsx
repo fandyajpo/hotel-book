@@ -7,7 +7,7 @@ const SearchForm = () => {
   const { get } = useSearchParams();
 
   return (
-    <div className="border rounded border-gray-300 bg-white/50 p-4 flex items-center justify-between">
+    <div className="border rounded border-gray-300 bg-white/90 p-4 flex items-center justify-between">
       <input
         placeholder="Search Location"
         value={get("q") as string}

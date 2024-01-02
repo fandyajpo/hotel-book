@@ -52,9 +52,9 @@ const AuthForm = () => {
         />
         <button
           type="submit"
-          className="bg-blue-500 w-full my-2 h-10 text-white"
+          className="bg-blue-600 w-full my-2 h-10 text-white"
         >
-          {loading ? <LoadingSVG className="w-6 h-6" /> : "Login"}
+          {loading ? <LoadingSVG className="w-6 h-6 text-white" /> : "Login"}
         </button>
       </form>
     </div>
