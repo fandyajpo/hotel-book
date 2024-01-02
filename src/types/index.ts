@@ -23,7 +23,20 @@ export type SlugMeta = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
+export type FacilitySummary = {
+  minBath?: number;
+  maxBath?: number;
+  minBed?: number;
+  maxBed?: number;
+};
+
+export type Facility = {
+  bed?: number;
+  bath?: number;
+};
+
 export type HotelT = {
+  summary?: FacilitySummary;
   name?: string;
   description?: string;
   image?: Array<ImageKitFileT>;
@@ -57,12 +70,11 @@ export type RoomT = {
   image?: Array<ImageKitFileT>;
   status?: StatusT;
   type?: RoomTypeT;
-  bed?: number;
-  bath?: number;
   price?: number;
   facilities?: Array<string>;
 } & ArangoDataT &
-  Slug;
+  Slug &
+  Facility;
 
 export type SecureFormT = {
   checkIn: string;

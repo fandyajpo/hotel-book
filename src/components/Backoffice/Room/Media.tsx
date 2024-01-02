@@ -46,7 +46,7 @@ const RoomMedia = (props: Media) => {
 
   return (
     <div className="relative">
-      <div className="border border-gray-300 p-4 rounded space-y-2 z-20">
+      <div className="border border-gray-300 p-4 bg-white/90 rounded space-y-2 z-20">
         <Title title="Room Media" />
         {isPending ? (
           <LoadingSVG className="w-6 h-6" />

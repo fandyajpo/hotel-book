@@ -79,12 +79,12 @@ export const roomById = async (key: string) => {
     const resx = await db.query({
       query: `FOR u IN @@coll
        FILTER u._key == @key
-            LET category = (
-              FOR c IN category
-                FILTER c._key == u.category
+            LET hot = (
+              FOR c IN hotel
+                FILTER c._key == u.hotel
                 RETURN  c 
             )
-      RETURN MERGE(u, { category: FIRST(category) })`,
+      RETURN MERGE(u, { hotel: FIRST(hot) })`,
       bindVars: { "@coll": "room", key: key },
     });
     const result = await resx.all();
@@ -142,8 +142,6 @@ export const updateRoom = async (
   name: string,
   status: string,
   description: string,
-  bed: number,
-  bath: number,
   price: number
 ) => {
   const db = cacheConnection();
@@ -156,8 +154,6 @@ export const updateRoom = async (
         name: @name, 
         status: @status, 
         description: @description,
-        bed: @bed,
-        bath: @bath,
         price: @price,
       }
       IN @@coll`,
@@ -167,8 +163,6 @@ export const updateRoom = async (
         name,
         status,
         description,
-        bed,
-        bath,
         price,
       },
     });
@@ -221,6 +215,76 @@ export const updateRoomMedia = async (key: string, image: ImageKitFileT) => {
 
     return { success: true };
   } catch (error) {
+    throw error;
+  } finally {
+    db.close();
+  }
+};
+
+export const updateHotelRoomSummary = async (
+  roomKey: string,
+  hotelKey: string,
+  bath: number,
+  bed: number
+) => {
+  const db = cacheConnection();
+  const transaction = await db.beginTransaction({
+    read: ["room"],
+    write: ["room", "hotel"],
+  });
+  try {
+    const first = await transaction.step(() =>
+      db.query({
+        query: `  
+        FOR u IN @@coll
+        FILTER u._key == @roomKey
+        UPDATE u WITH {
+          "bed": @bed,
+          "bath": @bath,
+        } IN @@coll
+        RETURN NEW
+      `,
+        bindVars: {
+          "@coll": "room",
+          roomKey,
+          bed,
+          bath,
+        },
+      })
+    );
+    const second = await transaction.step(() =>
+      db.query({
+        query: `
+      let summary = (
+        FOR u IN @@coll
+        FILTER u.hotel == @hotelKey
+        COLLECT AGGREGATE 
+          minBath = MIN(u.bath), 
+          maxBath = MAX(u.bath),
+          minBed = MIN(u.bed),
+          maxBed = MAX(u.bed)
+        RETURN { 
+          minBath, maxBath, minBed, maxBed
+        }
+      )
+      FOR u IN hotel
+      FILTER u._key == @hotelKey
+      UPDATE u WITH {
+        "summary": FIRST(summary)
+      } IN hotel
+      RETURN NEW
+        `,
+        bindVars: {
+          "@coll": "room",
+          hotelKey,
+        },
+      })
+    );
+
+    await transaction.commit();
+    return { success: true };
+  } catch (error) {
+    await transaction.abort();
     throw error;
   } finally {
     db.close();

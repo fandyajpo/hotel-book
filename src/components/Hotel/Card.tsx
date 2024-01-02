@@ -49,7 +49,13 @@ const HotelCard = (props: Props) => {
               <div className="mt-1.5 sm:mt-0">
                 <p className="text-gray-500">Bathroom</p>
 
-                <p className="font-medium">2 rooms</p>
+                <p className="font-medium">
+                  {props.hotel.summary?.minBath === props.hotel.summary?.maxBath
+                    ? props.hotel.summary?.minBath || ""
+                    : `${props.hotel.summary?.minBath || ""} - ${
+                        props.hotel.summary?.maxBath || ""
+                      }`}
+                </p>
               </div>
             </div>
 
@@ -72,7 +78,13 @@ const HotelCard = (props: Props) => {
               <div className="mt-1.5 sm:mt-0">
                 <p className="text-gray-500">Bedroom</p>
 
-                <p className="font-medium">4 rooms</p>
+                <p className="font-medium">
+                  {props.hotel.summary?.minBed === props.hotel.summary?.maxBed
+                    ? props.hotel.summary?.minBed || ""
+                    : `${props.hotel.summary?.minBed || ""} - ${
+                        props.hotel.summary?.maxBed || ""
+                      }`}
+                </p>
               </div>
             </div>
           </div>

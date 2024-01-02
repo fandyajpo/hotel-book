@@ -10,6 +10,7 @@ import { LoadingSVG } from "@/components/Icons";
 import { useRouter, useParams } from "next/navigation";
 import RoomMedia from "./Media";
 import RoomDelete from "./Delete";
+import RoomFacility from "./RoomFacility";
 
 const HOTEL_STATUS: Array<StatusT> = ["DRAFT", "AVAILABLE", "BOOKED"];
 
@@ -58,28 +59,6 @@ const RoomForm = (props?: Option) => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["room"] }),
   });
 
-  // const { data } = useQuery({
-  //   queryKey: ["hotelCategory"],
-  //   queryFn: () =>
-  //     client.get(`api/room/search?search=`, {
-  //       method: "GET",
-  //     }),
-  // });
-
-  // const searchCategory = async (q: string) => {
-  //   try {
-  //     const rr = await client.get(`api/category/search?search=${q}`, {
-  //       method: "GET",
-  //     });
-  //     return rr?.data?.map?.((a: CategoryT) => ({
-  //       label: a?.name,
-  //       value: a?._key,
-  //     }));
-  //   } catch (err) {
-  //     return null;
-  //   }
-  // };
-
   const submit = handleSubmit((data: RoomT) => {
     props?.method === "CREATE" ? create(data) : update(data);
   });
@@ -89,9 +68,10 @@ const RoomForm = (props?: Option) => {
       {props?.method === "UPDATE" ? (
         <RoomMedia media={props?.data?.image} />
       ) : null}
+
       <form
         onSubmit={submit}
-        className="border rounded border-gray-300 p-4 space-y-2"
+        className="border rounded border-gray-300 bg-white/90 p-4 space-y-2"
       >
         <Title title="Room Profile" />
         <Controller
@@ -121,32 +101,6 @@ const RoomForm = (props?: Option) => {
           )}
         />
         <div className="grid grid-cols-3 gap-2">
-          <Controller
-            control={control}
-            name="bed"
-            rules={{
-              required: true,
-            }}
-            render={({ field }) => (
-              <div className="flex flex-col gap-2">
-                <label>Bed</label>
-                <input placeholder="Bed" type="number" {...field} />
-              </div>
-            )}
-          />
-          <Controller
-            control={control}
-            name="bath"
-            rules={{
-              required: true,
-            }}
-            render={({ field }) => (
-              <div className="flex flex-col gap-2">
-                <label>Bath</label>
-                <input placeholder="Bath" type="number" {...field} />
-              </div>
-            )}
-          />
           <Controller
             control={control}
             name="price"
@@ -194,6 +148,7 @@ const RoomForm = (props?: Option) => {
         )}
       </form>
 
+      {props?.method === "UPDATE" ? <RoomFacility data={props.data} /> : null}
       {props?.method === "UPDATE" ? <RoomDelete /> : null}
     </div>
   );

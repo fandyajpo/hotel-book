@@ -219,7 +219,7 @@ export const updateHotel = async (
         currency: @currency,
         slug: @slug,
       }
-      IN @@coll`,
+      IN @@coll RETURN NEW`,
       bindVars: {
         "@coll": "hotel",
         key,
@@ -251,7 +251,7 @@ export const updateHotelMedia = async (key: string, image: ImageKitFileT) => {
       UPDATE f WITH { 
         "image": PUSH(f.image, @image),
       }
-      IN @@coll`,
+      IN @@coll RETURN NEW`,
       bindVars: { "@coll": "hotel", key: key, image: image },
     });
 

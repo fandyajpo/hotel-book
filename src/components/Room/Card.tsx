@@ -13,7 +13,7 @@ const RoomCard = (props: Props) => {
       <CardStatus status={props?.data?.status as StatusT} />
       <div className="w-full basis-44">
         <div className="aspect-square h-full w-full object-cover">
-          <ImageLoader imageSource={""} />
+          <ImageLoader imageSource={props.data?.image?.[0]?.url} />
         </div>
       </div>
 

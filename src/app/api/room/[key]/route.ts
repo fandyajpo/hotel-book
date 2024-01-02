@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import { Params, RoomT } from "@/types";
 import { roomById, updateRoom, delRoom } from "@/query/room";
@@ -26,8 +27,6 @@ export async function PATCH(
       body?.name,
       body?.status,
       body?.description,
-      Number(body?.bed),
-      Number(body?.bath),
       Number(body?.price)
     );
     return NextResponse.json(update);

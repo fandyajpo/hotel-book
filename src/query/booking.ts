@@ -138,6 +138,7 @@ export const updateBookingStatus = async (
         { status: "BOOKED" }
       );
     });
+
     await trx.step(() => {
       return room.update(
         { _key: roomId, _id: `room/${roomId}` },
