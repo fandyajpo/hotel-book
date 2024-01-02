@@ -46,6 +46,7 @@ export type RoomTypeT = {
 
 export type LocationT = {
   name?: string;
+  description?: string;
 } & ArangoDataT &
   Slug;
 

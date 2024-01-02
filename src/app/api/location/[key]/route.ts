@@ -9,7 +9,12 @@ export async function PATCH(
 ) {
   try {
     const body = await req.json();
-    const update = await updateLocation(params.key, body?.name, body?.slug);
+    const update = await updateLocation(
+      params.key,
+      body?.name,
+      body?.slug,
+      body?.description
+    );
     return NextResponse.json(update);
   } catch (err) {
     return NextResponse.json(err);
@@ -22,13 +27,10 @@ export async function DELETE(
 ) {
   try {
     const hotel: CategoryT = await locationById(params.key);
-
     if (!hotel) {
       return NextResponse.json({ success: false, message: "no data" });
     }
-
     const history: CategoryT = await delLocation(params.key);
-
     return NextResponse.json(history);
   } catch (err) {
     return NextResponse.json(err);

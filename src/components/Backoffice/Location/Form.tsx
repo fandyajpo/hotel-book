@@ -89,6 +89,24 @@ const LocationForm = (props?: Option) => {
             </div>
           )}
         />
+        <Controller
+          control={control}
+          name="description"
+          rules={{
+            required: true,
+          }}
+          render={({ field }) => (
+            <div className="flex flex-col gap-2">
+              <label>Description</label>
+              <input
+                placeholder="Description"
+                autoComplete="off"
+                type="text"
+                {...field}
+              />
+            </div>
+          )}
+        />
         {pendingCreate || pendingUpdate ? (
           <div className="pt-4">
             <LoadingSVG className="w-6 h-6" />

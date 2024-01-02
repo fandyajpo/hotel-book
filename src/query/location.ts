@@ -32,13 +32,18 @@ export const listLocation = async (page: number, limit: number) => {
   }
 };
 
-export const createLocation = async (name: string, slug: string) => {
+export const createLocation = async (
+  name: string,
+  slug: string,
+  description: string
+) => {
   const db = cacheConnection();
   try {
     await getCollection("location", db);
     await db.query({
-      query: "INSERT { name: @name, slug: @slug } IN @@coll RETURN NEW",
-      bindVars: { "@coll": "location", name, slug },
+      query:
+        "INSERT { name: @name, slug: @slug, description: @description } IN @@coll RETURN NEW",
+      bindVars: { "@coll": "location", name, slug, description },
     });
     return { success: true };
   } catch (error) {
@@ -51,7 +56,8 @@ export const createLocation = async (name: string, slug: string) => {
 export const updateLocation = async (
   key: string,
   name: string,
-  slug: string
+  slug: string,
+  description: string
 ) => {
   const db = cacheConnection();
   try {
@@ -61,10 +67,11 @@ export const updateLocation = async (
       FILTER f != null
       UPDATE f WITH { 
         name: @name,
-        slug: @slug
+        slug: @slug,
+        description: @description
       }
       IN @@coll`,
-      bindVars: { "@coll": "location", key, name, slug },
+      bindVars: { "@coll": "location", key, name, slug, description },
     });
 
     return { success: true };

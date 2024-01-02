@@ -15,14 +15,14 @@ export async function generateMetadata(
   const result: LocationT = await location.json();
 
   return {
-    title: result?.name || "Location",
+    title: `${result?.name} | EastLandBali` || "Location",
     description: result.name || "No Description",
     openGraph: {
-      title: result?.name || "Location",
+      title: `${result?.name} | EastLandBali` || "Location",
       description: result.name || "No Description",
     },
     twitter: {
-      title: result?.name || "Location",
+      title: `${result?.name} | EastLandBali` || "Location",
       description: result.name || "No Description",
     },
   };
