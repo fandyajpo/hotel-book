@@ -4,5 +4,5 @@ export const documentById = (id: string) => {
 
 export const slug = (str: string | undefined) => {
   const lowercasedStr = str?.toLowerCase();
-  return lowercasedStr?.replace(/\s+/g, "-").replace(/[^\w-]/g, "");
+  return lowercasedStr?.replace?.(/\s+/g, "-")?.replace?.(/[^\w-]/g, "");
 };

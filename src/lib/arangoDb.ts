@@ -1,7 +1,5 @@
 import { Database, aql } from "arangojs";
 
-// let database: Database;
-
 const getConnection = () => {
   try {
     const conn = new Database({
@@ -19,11 +17,7 @@ const getConnection = () => {
   }
 };
 
-const cacheConnection = (): Database => {
-  // if (!database)
-  return getConnection();
-  // return database;
-};
+const cacheConnection = (): Database => getConnection();
 
 const getCollection = async (cName: string, db: Database) => {
   try {
@@ -31,6 +25,7 @@ const getCollection = async (cName: string, db: Database) => {
     if (collections.find((c: any) => c._name === cName)) {
       return db.collection(cName);
     }
+    return null;
     return db.createCollection(cName);
   } catch (error) {
     throw error;
@@ -67,20 +62,4 @@ const createPing = async (message: string) => {
     db.close();
   }
 };
-
-// const cacheConnectionStatus = async () => {
-//   try {
-//     return database.listCollections();
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
-export {
-  getView,
-  getCollection,
-  cacheConnection,
-  aql,
-  createPing,
-  // cacheConnectionStatus,
-};
+export { getView, getCollection, cacheConnection, aql, createPing };
