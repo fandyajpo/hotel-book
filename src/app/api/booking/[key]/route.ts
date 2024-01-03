@@ -3,12 +3,22 @@ import { updateBookingStatus, bookingById, delBook } from "@/query/booking";
 import { BookingT, Params } from "@/types";
 import { NextResponse } from "next/server";
 
-export async function GET(
+export async function PATCH(
   req: Request,
   { params }: { params: Params<{ key: string }> }
 ) {
   try {
-    const cat = await updateBookingStatus(params?.key, "974193", "AVAILABLE");
+    const body = await req.json();
+
+    const cat = await updateBookingStatus(params?.key, body?.roomId, {
+      checkIn: body?.checkIn,
+      checkOut: body?.checkOut,
+      email: body?.email,
+      guest: body?.guest,
+      phone: body?.phone,
+      username: body?.username,
+    });
+    console.log(cat);
     return NextResponse.json(cat);
   } catch (err) {
     return NextResponse.json(err);

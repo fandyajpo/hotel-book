@@ -31,7 +31,7 @@ const BookDelete = (props: Props) => {
     },
   });
   return (
-    <div className="h-14  w-fit flex justify-between px-6 items-center">
+    <div className="h-10 w-fit flex justify-between items-center">
       {isPending ? (
         <LoadingSVG className="w-6 h-6" />
       ) : approve ? (
@@ -39,14 +39,14 @@ const BookDelete = (props: Props) => {
           <button
             type="button"
             onClick={() => setApprove(false)}
-            className="text-orange-500 bg-white h-8 w-32 flex items-center justify-center"
+            className="bg-orange-500 text-white h-8 w-32 flex items-center justify-center"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={() => mutate()}
-            className="text-red-500 bg-white h-8 w-32 flex items-center justify-center"
+            className="bg-red-500 text-white h-8 w-32 flex items-center justify-center"
           >
             Delete
           </button>
@@ -54,7 +54,7 @@ const BookDelete = (props: Props) => {
       ) : (
         <button
           onClick={() => setApprove(true)}
-          className="text-red-500 bg-white h-8 w-32 flex items-center justify-center"
+          className="bg-red-500 text-white h-8 w-32 flex items-center justify-center"
         >
           Delete
         </button>

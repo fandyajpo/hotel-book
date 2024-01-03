@@ -11,6 +11,7 @@ import { useRouter, useParams } from "next/navigation";
 import RoomMedia from "./Media";
 import RoomDelete from "./Delete";
 import RoomFacility from "./RoomFacility";
+import RoomCustomer from "./BookingUserForm.tsx";
 
 const HOTEL_STATUS: Array<StatusT> = ["DRAFT", "AVAILABLE", "BOOKED"];
 
@@ -149,6 +150,7 @@ const RoomForm = (props?: Option) => {
       </form>
 
       {props?.method === "UPDATE" ? <RoomFacility data={props.data} /> : null}
+      {props?.method === "UPDATE" ? <RoomCustomer data={props.data} /> : null}
       {props?.method === "UPDATE" ? <RoomDelete /> : null}
     </div>
   );

@@ -4,6 +4,7 @@ import { documentById } from "@/lib/listFunc";
 import { BookingT } from "@/types";
 import BookDelete from "./Delete";
 import { currencyFormator } from "@/lib/currencyFormat";
+import SaveBooking from "./SaveBooking";
 interface Props {
   book: BookingT;
 }
@@ -80,8 +81,10 @@ const ProcessModalBook = (props: Props) => {
           </dd>
         </div>
       </dl>
-
-      <BookDelete data={props.book} />
+      <div className="pt-8">
+        <SaveBooking data={props.book} />
+        <BookDelete data={props.book} />
+      </div>
     </div>
   );
 };

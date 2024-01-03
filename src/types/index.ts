@@ -19,8 +19,8 @@ export type StatusT = "AVAILABLE" | "DRAFT" | "BOOKED";
 export type CurrencyT = "IDR" | "AUD" | "USD" | "THB" | "SGD" | "EUR" | "GBP";
 
 export type SlugMeta = {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params?: { slug?: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 };
 
 export type FacilitySummary = {
@@ -64,6 +64,7 @@ export type LocationT = {
   Slug;
 
 export type RoomT = {
+  customer?: SecureFormT;
   hotel?: HotelT;
   name?: string;
   description?: string;
@@ -77,16 +78,16 @@ export type RoomT = {
   Facility;
 
 export type SecureFormT = {
-  checkIn: string;
-  checkOut: string;
-  guest: number;
-  email: string;
-  phone: string;
+  username?: string;
+  checkIn?: string;
+  checkOut?: string;
+  guest?: number;
+  email?: string;
+  phone?: string;
 };
-
 export type BookingT = {
-  username: string;
-  currency: CurrencyT;
+  knowing?: boolean;
+  currency?: CurrencyT;
   amount?: number;
   transactionUrl?: string;
   hotel?: HotelT;

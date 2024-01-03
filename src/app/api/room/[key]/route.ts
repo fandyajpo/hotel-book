@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import { Params, RoomT } from "@/types";
-import { roomById, updateRoom, delRoom } from "@/query/room";
+import { roomById, updateRoom, delRoom, roomEndSession } from "@/query/room";
 import imageKit from "@/lib/imageKit";
 
 export async function GET(
@@ -22,6 +22,14 @@ export async function PATCH(
 ) {
   try {
     const body = await req.json();
+
+    console.log(body);
+
+    if (body.hasOwnProperty("method") && body.method === "END_SESSION") {
+      const endSession = await roomEndSession(params?.key, "AVAILABLE");
+      return NextResponse.json(endSession);
+    }
+
     const update = await updateRoom(
       params?.key,
       body?.name,

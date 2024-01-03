@@ -1,6 +1,7 @@
 "use server";
 import { cacheConnection, getCollection } from "@/lib/arangoDb";
 import { ImageKitFileT } from "@/lib/imageKit";
+import { StatusT } from "@/types";
 
 export const listRoom = async (
   page: number,
@@ -164,6 +165,31 @@ export const updateRoom = async (
         status,
         description,
         price,
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    throw error;
+  } finally {
+    db.close();
+  }
+};
+
+export const roomEndSession = async (key: string, status: StatusT) => {
+  const db = cacheConnection();
+  try {
+    await getCollection("room", db);
+    await db.query({
+      query: `LET f = DOCUMENT(@@coll, @key)
+      UPDATE f WITH { 
+        "customer": null,
+        "status": @status,
+      } IN @@coll`,
+      bindVars: {
+        "@coll": "room",
+        key,
+        status,
       },
     });
 

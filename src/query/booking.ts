@@ -1,7 +1,7 @@
 "use server";
 
 import { cacheConnection, getCollection } from "@/lib/arangoDb";
-import { BookingT, SecureFormT, StatusT } from "@/types";
+import { BookingT, RoomT, SecureFormT, StatusT } from "@/types";
 
 export const listBooking = async (
   page: number,
@@ -19,7 +19,7 @@ export const listBooking = async (
       LET data = (
         FOR p IN @@coll
         FILTER !(@checkIn && @checkOut) || (p.checkIn >= DATE_ISO8601(@checkIn) && p.checkOut <= DATE_ISO8601(@checkOut))
-         
+        SORT p.active == true ? 0 : 1
         LET roo = (
           FOR c IN room
           FILTER c._key == p.room
@@ -121,7 +121,7 @@ export const bookingById = async (key: string) => {
 export const updateBookingStatus = async (
   bookId: string,
   roomId: string,
-  status: StatusT
+  customer: SecureFormT
 ) => {
   const db = cacheConnection();
   const booking = db.collection("booking");
@@ -135,15 +135,22 @@ export const updateBookingStatus = async (
     await trx.step(() => {
       return booking.update(
         { _key: bookId, _id: `booking/${bookId}` },
-        { status: "BOOKED" }
+        { knowing: true }
       );
     });
 
     await trx.step(() => {
-      return room.update(
-        { _key: roomId, _id: `room/${roomId}` },
-        { status: "BOOKED" }
-      );
+      return room.update({ _key: roomId, _id: `room/${roomId}` }, {
+        status: "BOOKED",
+        customer: {
+          checkIn: customer?.checkIn,
+          checkOut: customer?.checkOut,
+          email: customer?.email,
+          guest: Number(customer?.guest),
+          phone: customer?.phone,
+          username: customer?.username,
+        },
+      } as RoomT);
     });
 
     await trx.commit();
