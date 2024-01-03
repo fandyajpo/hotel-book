@@ -22,8 +22,7 @@ const AuthForm = () => {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       return router.replace("/bo/hotel?page=1");
     } catch (err) {
-      setLoading(false);
-      return console.log("ERROR : ", err);
+      return setLoading(false);
     }
   });
 

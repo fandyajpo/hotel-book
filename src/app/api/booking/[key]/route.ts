@@ -18,7 +18,7 @@ export async function PATCH(
       phone: body?.phone,
       username: body?.username,
     });
-    console.log(cat);
+
     return NextResponse.json(cat);
   } catch (err) {
     return NextResponse.json(err);

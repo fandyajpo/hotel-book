@@ -23,8 +23,6 @@ export async function PATCH(
   try {
     const body = await req.json();
 
-    console.log(body);
-
     if (body.hasOwnProperty("method") && body.method === "END_SESSION") {
       const endSession = await roomEndSession(params?.key, "AVAILABLE");
       return NextResponse.json(endSession);

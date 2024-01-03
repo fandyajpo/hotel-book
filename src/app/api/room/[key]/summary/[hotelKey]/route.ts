@@ -15,7 +15,7 @@ export async function PATCH(
       Number(body?.bath),
       Number(body?.bed)
     );
-    console.log(update);
+
     return NextResponse.json(update);
   } catch (err) {
     return NextResponse.json(err);

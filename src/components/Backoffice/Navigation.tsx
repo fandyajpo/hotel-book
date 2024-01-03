@@ -1,6 +1,7 @@
 "use client";
 import { auth } from "@/lib/Firebase";
 import { signOut } from "firebase/auth";
+
 import Link from "next/link";
 import { useStore } from "@/store";
 import { useSelectedLayoutSegment } from "next/navigation";
@@ -13,7 +14,7 @@ const url = [
 ];
 
 const Navigation = () => {
-  const { user } = useStore();
+  const { user, dispatch } = useStore();
   const segments = useSelectedLayoutSegment();
   return (
     <div className="flex flex-col gap-4 p-2 z-30">
@@ -39,7 +40,10 @@ const Navigation = () => {
           <button
             type="button"
             className="bg-white text-blue-500 p-1"
-            onClick={() => signOut(auth)}
+            onClick={() => {
+              signOut(auth);
+              dispatch({ user: undefined });
+            }}
           >
             Sign Out
           </button>
