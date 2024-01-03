@@ -16,7 +16,6 @@ type Media = {
 
 const HotelMedia = (props: Media) => {
   const params = useParams();
-
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
       const file: any = e?.target?.files?.[0];
@@ -55,11 +54,9 @@ const HotelMedia = (props: Media) => {
         {isPending ? (
           <LoadingSVG className="w-6 h-6" />
         ) : (
-          <>
-            <Test image={props?.media as ImageKitFileT[]} />
-            <input onChange={onChange} accept="image/*" type="file" />
-          </>
+          <Test image={props?.media as ImageKitFileT[]} />
         )}
+        <input onChange={onChange} accept="image/*" type="file" />
       </div>
     </div>
   );

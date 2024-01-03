@@ -19,7 +19,7 @@ export const listBooking = async (
       LET data = (
         FOR p IN @@coll
         FILTER !(@checkIn && @checkOut) || (p.checkIn >= DATE_ISO8601(@checkIn) && p.checkOut <= DATE_ISO8601(@checkOut))
-        SORT p.knowing == true ? 0 : 1
+        SORT p.knowing == true ? 1 : 0
         LET roo = (
           FOR c IN room
           FILTER c._key == p.room

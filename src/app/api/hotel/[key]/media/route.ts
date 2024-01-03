@@ -10,10 +10,10 @@ export async function PATCH(
   try {
     const body = await req.json();
 
-    if (body.hasOwnProperty("method") && body.method === "DELETE_IMAGE") {
+    if (body.hasOwnProperty("method") && body?.method === "DELETE_IMAGE") {
     }
 
-    if (body.hasOwnProperty("method") && body.method === "SAVE_POSITION") {
+    if (body.hasOwnProperty("method") && body?.method === "SAVE_POSITION") {
       const updatePosition = await updateHotelMediaPosition(
         params?.key,
         body.image
@@ -24,11 +24,11 @@ export async function PATCH(
     if (!body.image) return { success: false, message: "No image provide" };
 
     const upload = await imageKit.upload({
-      file: body.image,
+      file: body?.image,
       fileName: "test",
     });
 
-    const updateMedia = await updateHotelMedia(params.key, {
+    const updateMedia = await updateHotelMedia?.(params?.key, {
       id: upload?.fileId,
       name: upload?.name,
       url: upload?.url,

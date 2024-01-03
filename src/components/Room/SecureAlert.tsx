@@ -26,8 +26,10 @@ const SecureAlert = (props: Props) => {
     mutationFn: (data: BookingT) =>
       client.post("api/booking", {
         ...data,
-        checkIn: new Date(data.checkIn).toISOString(),
-        checkOut: new Date(data.checkOut).toISOString(),
+        // @ts-ignore
+        checkIn: new Date(data?.checkIn).toISOString(),
+        // @ts-ignore
+        checkOut: new Date(data?.checkOut).toISOString(),
         room: props?.room?._key,
         guest: Number(data.guest),
         hotel: props?.room?.hotel?._key,
