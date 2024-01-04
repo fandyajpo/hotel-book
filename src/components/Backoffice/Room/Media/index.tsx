@@ -60,7 +60,12 @@ const RoomMedia = (props: Media) => {
             hotelKey={props?.hotelKey ? props?.hotelKey : undefined}
           />
         )}
-        <input onChange={onChange} accept="image/*" type="file" />
+        <input
+          onChange={onChange}
+          disabled={isPending}
+          accept="image/*"
+          type="file"
+        />
       </div>
     </div>
   );

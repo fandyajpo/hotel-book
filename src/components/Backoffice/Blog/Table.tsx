@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import Modal from "@/components/Arch/Modal";
 import { documentById } from "@/lib/listFunc";
 import { BlogT } from "@/types";
@@ -25,7 +26,6 @@ const BlogTable = () => {
       client.get(`api/blog?page=${get("page") || 1}&limit=10`, {
         method: "GET",
       }),
-
     enabled: !deferQuery,
   });
 
@@ -35,7 +35,6 @@ const BlogTable = () => {
       client.get(`api/blog/search?search=${deferQuery}`, {
         method: "GET",
       }),
-
     enabled: deferQuery !== "" || deferQuery !== null,
   });
 
@@ -59,12 +58,14 @@ const BlogTable = () => {
             {!deferQuery ? (
               <>
                 {data?.data?.data?.map?.((a: BlogT) => (
-                  <tr key={a._key} className="border">
-                    <td className="border py-2 px-4">{a.slug}</td>
+                  <tr key={a?._key} className="border">
+                    <td className="border py-2 px-4">
+                      {a?.title ? a?.title : a?.slug}
+                    </td>
                     <td className="border">
-                      <button
+                      <Link
                         className="text-black p-2"
-                        onClick={() => action(a)}
+                        href={`/bo/blog/${a._key}`}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -78,10 +79,7 @@ const BlogTable = () => {
                             clipRule="evenodd"
                           />
                         </svg>
-                      </button>
-                      <Modal id={a._key}>
-                        <CategoryForm data={a} method="UPDATE" />
-                      </Modal>
+                      </Link>
                     </td>
                   </tr>
                 ))}

@@ -1,15 +1,6 @@
 import { NextResponse } from "next/server";
 import { createBlog, listBlog } from "@/query/blog";
 import { rstr } from "@/lib/listFunc";
-export async function POST(req: Request) {
-  try {
-    const body = await req.json();
-    const create = await createBlog(body?.slug, body?.html);
-    return NextResponse.json(create);
-  } catch (err) {
-    return NextResponse.json(err);
-  }
-}
 
 export async function GET(req: Request) {
   try {
@@ -28,6 +19,16 @@ export async function GET(req: Request) {
 
     const cat = await listBlog(rPage * Number(limit), Number(limit));
     return NextResponse.json(cat);
+  } catch (err) {
+    return NextResponse.json(err);
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const create = await createBlog(body?.slug, body?.html);
+    return NextResponse.json(create);
   } catch (err) {
     return NextResponse.json(err);
   }

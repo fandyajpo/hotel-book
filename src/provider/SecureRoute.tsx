@@ -10,7 +10,7 @@ import {
 } from "next/navigation";
 
 const SecureRoute = ({ children }: { children: React.ReactNode }) => {
-  const { dispatch, user } = useStore();
+  const { dispatch } = useStore();
   const pathname = usePathname();
   const router = useRouter();
   const segment = useSelectedLayoutSegment();

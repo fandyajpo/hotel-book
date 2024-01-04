@@ -69,22 +69,28 @@ function Test(props: Props) {
             <div className="flex gap-2 flex-none overflow-x-auto w-full">
               {images?.map?.((im: ImageKitFileT, index: number) => (
                 <div key={im?.id} className="relative group">
-                  <Modal id={im?.id}>
-                    <DeleteHotelMedia
-                      imageId={im.id}
-                      hotelKey={props?.hotelKey ? props?.hotelKey : undefined}
-                      imageIndex={index}
-                    />
-                  </Modal>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      documentById(im?.id as string)?.showModal?.()
-                    }
-                    className="w-8 h-8 hidden group-hover:flex absolute bg-red-500 top-1 right-1 rounded-md items-center justify-center z-20"
-                  >
-                    <X className="w-6 h-6 text-white" />
-                  </button>
+                  {index === 0 ? null : (
+                    <>
+                      <Modal id={im?.id}>
+                        <DeleteHotelMedia
+                          imageId={im.id}
+                          hotelKey={
+                            props?.hotelKey ? props?.hotelKey : undefined
+                          }
+                          imageIndex={index}
+                        />
+                      </Modal>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          documentById(im?.id as string)?.showModal?.()
+                        }
+                        className="w-8 h-8 hidden group-hover:flex absolute bg-red-500 top-1 right-1 rounded-md items-center justify-center z-20"
+                      >
+                        <X className="w-6 h-6 text-white" />
+                      </button>
+                    </>
+                  )}
                   <SortableItem key={im?.id} image={im} />
                 </div>
               ))}

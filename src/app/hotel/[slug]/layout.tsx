@@ -13,7 +13,7 @@ export async function generateMetadata(
   { params }: SlugMeta,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const hotel: HotelT = await hotelBySlug(params?.slug);
+  const hotel: HotelT = await hotelBySlug(params?.slug as string);
 
   return {
     title: hotel?.name || "Hotel",

@@ -15,13 +15,12 @@ const Blog = async (
   const blog: BlogT = await blogBySlug(props.params?.slug);
   return (
     <div className="flex justify-center">
-      {/* <pre>{JSON.stringify(blog, null, 2)}</pre> */}
       <Layer isMiddle>
         <Back />
         <section
           dangerouslySetInnerHTML={{ __html: blog.html }}
           className="py-24"
-        ></section>
+        />
       </Layer>
     </div>
   );

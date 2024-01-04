@@ -7,7 +7,7 @@ export type UpdateMethod<T> = {
   data?: T;
 };
 
-export type MethodT = "UPDATE" | "DELETE";
+export type MethodT = "UPDATE" | "DELETE" | "CREATE" | "";
 
 export type ArangoDataT = {
   _key?: string;
@@ -106,6 +106,8 @@ export type BookingT = {
   SecureFormT;
 
 export type BlogT = {
+  description: string;
+  title: string;
   slug: string;
   html: string;
 } & ArangoDataT;

@@ -7,7 +7,7 @@ const SearchForm = () => {
   return (
     <div className="border rounded border-gray-300 bg-white/90 p-4 flex items-center justify-between">
       <input
-        placeholder="Search Category"
+        placeholder="Search Blog"
         onChange={(e) =>
           push(`/bo/category?q=${encodeURIComponent(e?.target?.value)}`)
         }
