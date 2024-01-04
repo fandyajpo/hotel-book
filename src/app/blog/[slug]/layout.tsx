@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { blogBySlug } from "@/query/blog";
 import { BlogT, SlugMeta } from "@/types";
 import { Metadata, ResolvingMetadata } from "next/types";

@@ -1,5 +1,4 @@
 "use client";
-
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useMutation } from "@tanstack/react-query";
@@ -7,8 +6,9 @@ import { client } from "@/lib/axios";
 import { rstr } from "@/lib/listFunc";
 import { LoadingSVG } from "@/components/Icons";
 import { MethodT } from "@/types";
-import { useParams } from "next/navigation";
-
+import { useParams, useRouter } from "next/navigation";
+import { queryClient } from "@/provider/TanstackQuery";
+import BlogDelete from "./Delete";
 interface Props {
   value: string;
   onChange: (d: any) => void;
@@ -16,6 +16,7 @@ interface Props {
 }
 
 const BlogEditor = (props: Props) => {
+  const router = useRouter();
   const params = useParams();
   const { mutate: create, isPending: createLoading } = useMutation({
     mutationKey: ["createBlog"],
@@ -30,6 +31,11 @@ const BlogEditor = (props: Props) => {
           },
         }
       ),
+    onSettled: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
+      if (!data?.data?.data?._key) return;
+      return router.push(`/bo/blog/${data?.data?.data?._key}`);
+    },
   });
 
   const { mutate: update, isPending: updateLoading } = useMutation({
@@ -80,6 +86,7 @@ const BlogEditor = (props: Props) => {
           </button>
         )}
       </div>
+      {props.method === "UPDATE" ? <BlogDelete /> : null}
     </div>
   );
 };

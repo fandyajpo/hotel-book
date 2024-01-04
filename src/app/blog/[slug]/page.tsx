@@ -16,7 +16,7 @@ const Blog = async (
 ) => {
   const blog: BlogT = await blogBySlug(props.params?.slug);
   return (
-    <div className="flex justify-center">
+    <div className="flex w-full justify-center">
       <Suspense fallback={<Loading />}>
         <Layer isMiddle>
           <Back />

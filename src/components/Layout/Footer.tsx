@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 const Footer = () => {
   const segment = useSelectedLayoutSegment();
@@ -231,6 +231,15 @@ const Footer = () => {
                   {" "}
                   Contact{" "}
                 </a>
+              </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-gray-700 transition hover:opacity-75"
+                >
+                  {" "}
+                  Blog{" "}
+                </Link>
               </li>
 
               <li>
