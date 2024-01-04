@@ -140,7 +140,10 @@ const HotelForm = (props?: Option) => {
   return (
     <div className="space-y-4">
       {props?.method === "UPDATE" ? (
-        <HotelMedia media={props?.data?.image} />
+        <HotelMedia
+          media={props?.data?.image}
+          hotelKey={props?.data?._key ? props?.data?._key : undefined}
+        />
       ) : null}
 
       <form

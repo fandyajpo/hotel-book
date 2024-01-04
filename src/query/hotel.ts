@@ -340,3 +340,29 @@ export const updateHotelMediaPosition = async (
     db.close();
   }
 };
+
+export const delHotelImage = async (key: string, index: number) => {
+  const db = cacheConnection();
+  try {
+    await getCollection("hotel", db);
+    await db.query({
+      query: `
+      LET f = DOCUMENT(@@coll, @key)
+      LET updating = REMOVE_NTH(f.image,@index)
+      UPDATE f WITH { 
+        image: updating,
+    } IN @@coll RETURN NEW`,
+      bindVars: {
+        "@coll": "hotel",
+        key,
+        index,
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    throw error;
+  } finally {
+    db.close();
+  }
+};

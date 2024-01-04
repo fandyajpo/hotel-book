@@ -1,5 +1,9 @@
 import imageKit from "@/lib/imageKit";
-import { updateHotelMedia, updateHotelMediaPosition } from "@/query/hotel";
+import {
+  delHotelImage,
+  updateHotelMedia,
+  updateHotelMediaPosition,
+} from "@/query/hotel";
 import { Params } from "@/types";
 import { NextResponse } from "next/server";
 
@@ -11,6 +15,17 @@ export async function PATCH(
     const body = await req.json();
 
     if (body.hasOwnProperty("method") && body?.method === "DELETE_IMAGE") {
+      if (!body?.index)
+        return NextResponse.json({ success: false, message: "no index" });
+
+      const removeHotelImage = await delHotelImage(
+        params?.key,
+        Number(body?.index)
+      );
+
+      await imageKit.deleteFile(body?.imageId);
+
+      return NextResponse.json(removeHotelImage);
     }
 
     if (body.hasOwnProperty("method") && body?.method === "SAVE_POSITION") {

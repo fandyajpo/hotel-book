@@ -12,6 +12,7 @@ import Test from "./Test";
 
 type Media = {
   media?: Array<ImageKitFileT>;
+  hotelKey?: string;
 };
 
 const HotelMedia = (props: Media) => {
@@ -54,7 +55,10 @@ const HotelMedia = (props: Media) => {
         {isPending ? (
           <LoadingSVG className="w-6 h-6" />
         ) : (
-          <Test image={props?.media as ImageKitFileT[]} />
+          <Test
+            image={props?.media as ImageKitFileT[]}
+            hotelKey={props?.hotelKey ? props?.hotelKey : undefined}
+          />
         )}
         <input onChange={onChange} accept="image/*" type="file" />
       </div>

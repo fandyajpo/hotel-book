@@ -316,3 +316,58 @@ export const updateHotelRoomSummary = async (
     db.close();
   }
 };
+
+export const updateRoomMediaPosition = async (
+  key: string,
+  image: Array<ImageKitFileT>
+) => {
+  const db = cacheConnection();
+  try {
+    await getCollection("room", db);
+    await db.query({
+      query: `LET f = DOCUMENT(@@coll, @key)
+      FILTER f != null
+      UPDATE f WITH { 
+        image: @image,
+      }
+      IN @@coll`,
+      bindVars: {
+        "@coll": "room",
+        key,
+        image,
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    throw error;
+  } finally {
+    db.close();
+  }
+};
+
+export const delRoomImage = async (key: string, index: number) => {
+  const db = cacheConnection();
+  try {
+    await getCollection("room", db);
+    await db.query({
+      query: `
+      LET f = DOCUMENT(@@coll, @key)
+      LET updating = REMOVE_NTH(f.image,@index)
+      UPDATE f WITH { 
+          image: updating,
+    } IN @@coll RETURN NEW`,
+      bindVars: {
+        "@coll": "room",
+        key,
+        index,
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    throw error;
+  } finally {
+    db.close();
+  }
+};

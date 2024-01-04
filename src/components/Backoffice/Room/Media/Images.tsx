@@ -21,7 +21,7 @@ interface Props {
   image: ImageKitFileT[];
 }
 
-function Test(props: Props) {
+function Images(props: Props) {
   const params = useParams();
   const [images, setImages] = useState<ImageKitFileT[]>(props?.image);
 
@@ -29,7 +29,7 @@ function Test(props: Props) {
     mutationKey: ["updateHotelImagePosition"],
     mutationFn: () =>
       client.patch(
-        `api/hotel/${params?.key}/media`,
+        `api/room/${params?.id}/media`,
         {
           method: "SAVE_POSITION",
           image: images,
@@ -43,7 +43,7 @@ function Test(props: Props) {
       ),
     onSuccess: () =>
       queryClient.invalidateQueries({
-        queryKey: ["hotel"],
+        queryKey: ["room"],
       }),
   });
 
@@ -105,4 +105,4 @@ function Test(props: Props) {
   }
 }
 
-export default Test;
+export default Images;

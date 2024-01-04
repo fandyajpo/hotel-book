@@ -12,13 +12,13 @@ interface Props {
   imageId?: string;
 }
 
-const DeleteHotelMedia = (props: Props) => {
+const DeleteRoomMedia = (props: Props) => {
   const params = useParams();
   const { mutate, isPending } = useMutation({
     mutationKey: ["removeHotelImage"],
     mutationFn: () =>
       client.patch(
-        `api/hotel/${params?.key}/media`,
+        `api/room/${params?.id}/media`,
         {
           method: "DELETE_IMAGE",
           index: Number(props?.imageIndex),
@@ -34,7 +34,7 @@ const DeleteHotelMedia = (props: Props) => {
     onSuccess: () => {
       documentById?.(props?.imageId as string)?.close?.();
       return queryClient.invalidateQueries({
-        queryKey: ["hotel"],
+        queryKey: ["room"],
       });
     },
   });
@@ -66,4 +66,4 @@ const DeleteHotelMedia = (props: Props) => {
   );
 };
 
-export default DeleteHotelMedia;
+export default DeleteRoomMedia;

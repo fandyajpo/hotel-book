@@ -4,6 +4,7 @@ import { UpdateMethod } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { NextComponentType } from "next";
 import { useParams } from "next/navigation";
+import { LoadingSVG } from "../Icons";
 
 interface Props {
   queryKey: string;
@@ -16,7 +17,7 @@ const withData = <T,>(
 ) => {
   const WrappedComponent = (props: UpdateMethod<T>) => {
     const params = useParams();
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, isFetching } = useQuery({
       queryKey: [requirement.queryKey, params?.id, params?.key],
       queryFn: () =>
         client.get(
@@ -30,12 +31,14 @@ const withData = <T,>(
 
     return (
       <>
-        {!isLoading ? (
+        {!isLoading && !isFetching ? (
           <Component
             data={props.method === "UPDATE" ? data?.data : null}
             method={props.method}
           />
-        ) : null}
+        ) : (
+          <LoadingSVG className="w-24 h-24 text-white" />
+        )}
       </>
     );
   };
