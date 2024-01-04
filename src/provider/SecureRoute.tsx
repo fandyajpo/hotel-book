@@ -10,20 +10,21 @@ import {
 } from "next/navigation";
 
 const SecureRoute = ({ children }: { children: React.ReactNode }) => {
-  const { dispatch } = useStore();
+  const { dispatch, user } = useStore();
   const pathname = usePathname();
   const router = useRouter();
   const segment = useSelectedLayoutSegment();
 
   useEffect(() => {
-    const unsubsrcibe = auth.onAuthStateChanged((user: User | null) => {
-      if (user !== null) {
-        dispatch({ user: user });
+    const unsubsrcibe = auth.onAuthStateChanged(
+      (userF: User | null | undefined) => {
+        dispatch({ user: userF });
+
+        if (segment !== "auth" && userF === null) {
+          router.replace("/bo/auth");
+        }
       }
-      if (segment !== "auth" && user === null) {
-        router.replace("/bo/auth");
-      }
-    });
+    );
     return unsubsrcibe;
   }, [auth, pathname, segment]);
 

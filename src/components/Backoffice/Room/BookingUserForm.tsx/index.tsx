@@ -112,7 +112,7 @@ const RoomCustomer = (props?: Option) => {
               </button>
             </div>
           </div>
-        ) : props?.data?.customer === null ? (
+        ) : !props?.data?.customer || props?.data?.customer === null ? (
           <p className="bg-blue-500 py-1 px-2 rounded text-white disabled:bg-gray-500 duration-500">
             No Session are start
           </p>

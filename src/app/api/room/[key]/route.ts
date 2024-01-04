@@ -54,8 +54,8 @@ export async function DELETE(
 
     const history: RoomT = await delRoom(params?.key);
 
-    if (history.image && history.image.length > 0) {
-      const idOfFile = history.image.map((a) => a.id);
+    if (history?.image && history?.image?.length > 0) {
+      const idOfFile = history?.image?.map?.((a) => a.id);
       await imageKit.bulkDeleteFiles(idOfFile);
     }
 

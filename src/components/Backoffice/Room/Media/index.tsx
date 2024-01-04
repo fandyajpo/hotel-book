@@ -8,7 +8,7 @@ import { ChangeEvent } from "react";
 import { ImageKitFileT } from "@/lib/imageKit";
 import { LoadingSVG } from "@/components/Icons";
 import Title from "../../../Arch/Title";
-import Test from "./Images";
+import Images from "./Images";
 
 type Media = {
   media?: Array<ImageKitFileT>;
@@ -55,7 +55,7 @@ const RoomMedia = (props: Media) => {
         {isPending ? (
           <LoadingSVG className="w-6 h-6" />
         ) : (
-          <Test
+          <Images
             image={props?.media as ImageKitFileT[]}
             hotelKey={props?.hotelKey ? props?.hotelKey : undefined}
           />

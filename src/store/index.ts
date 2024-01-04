@@ -2,7 +2,7 @@ import { User } from "firebase/auth";
 import { create } from "zustand";
 
 interface BearValue {
-  user?: User;
+  user?: User | null | undefined;
 }
 
 interface BearState extends BearValue {

@@ -35,7 +35,17 @@ export type Facility = {
   bath?: number;
 };
 
+export type HotelContatctT = {
+  instagram?: string;
+  instagramUrl?: string;
+  facebook: string;
+  facebookUrl: string;
+  whatsapp?: string;
+  whatsappUrl?: string;
+};
+
 export type HotelT = {
+  contact?: HotelContatctT;
   summary?: FacilitySummary;
   name?: string;
   description?: string;
@@ -94,3 +104,8 @@ export type BookingT = {
   room?: RoomT;
 } & ArangoDataT &
   SecureFormT;
+
+export type BlogT = {
+  slug: string;
+  html: string;
+};
