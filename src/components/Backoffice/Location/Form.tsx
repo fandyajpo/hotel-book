@@ -31,7 +31,7 @@ const LocationForm = (props?: Option) => {
         }
       ),
     onSuccess: () => {
-      reset({ name: "" });
+      reset({ name: "", description: "" });
       return Promise.all([
         queryClient.invalidateQueries({ queryKey: ["locationSearch"] }),
         queryClient.invalidateQueries({ queryKey: ["locations"] }),
