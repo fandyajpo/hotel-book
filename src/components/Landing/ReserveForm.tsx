@@ -60,12 +60,12 @@ const ReserveForm = () => {
           control={control}
           name="checkIn"
           render={({ field }) => (
-            <div className="w-full bg-white border border-gray-300 p-2 rounded-xl">
+            <div className="w-full bg-white border border-gray-400 shadow p-2 rounded-md">
               <label className=" sm:text-black">Check in</label>
               <input
                 type="date"
                 {...field}
-                className="w-full p-2 rounded-md"
+                className="w-full p-2 rounded-md bg-gray-200"
                 placeholder="Check in"
               />
             </div>
@@ -78,12 +78,12 @@ const ReserveForm = () => {
           control={control}
           name="checkOut"
           render={({ field }) => (
-            <div className="w-full bg-white border border-gray-300 p-2 rounded-xl">
+            <div className="w-full bg-white border border-gray-400 shadow p-2 rounded-md">
               <label className=" sm:text-black">Check out</label>
               <input
                 type="date"
                 {...field}
-                className="w-full p-2 rounded-md"
+                className="w-full p-2 rounded-md bg-gray-200"
                 placeholder="Check out"
               />
             </div>
@@ -96,7 +96,7 @@ const ReserveForm = () => {
           control={control}
           name="location"
           render={({ field }) => (
-            <div className="w-full bg-white border border-gray-300 p-2 rounded-xl">
+            <div className="w-full bg-white border border-gray-400 shadow p-2 rounded-md">
               <label className=" sm:text-black">Location</label>
               <AsyncSelect
                 menuPortalTarget={
@@ -104,6 +104,18 @@ const ReserveForm = () => {
                   document.querySelector("body")
                 }
                 styles={{
+                  control: (base, state) => ({
+                    ...base,
+                    background: "rgb(229, 231, 235)",
+                    // match with the menu
+                    borderRadius: state.isFocused ? 5 : 5,
+                    // Overwrittes the different states of border
+                    borderColor: state.isFocused
+                      ? "rgb(107, 114, 128)"
+                      : "rgb(107, 114, 128)",
+                    // Removes weird border around container
+                    boxShadow: state.isFocused ? null : null,
+                  }),
                   menuPortal: (provided) => ({
                     ...provided,
                     zIndex: 9999,
@@ -134,12 +146,12 @@ const ReserveForm = () => {
           control={control}
           name="guest"
           render={({ field }) => (
-            <div className="w-full bg-white border border-gray-300 p-2 rounded-xl">
+            <div className="w-full bg-white border border-gray-400 shadow p-2 rounded-md">
               <label className=" sm:text-black">Guest</label>
               <input
                 type="number"
                 {...field}
-                className="w-full p-2 rounded-md"
+                className="w-full p-2 rounded-md bg-gray-200"
                 placeholder="Guest"
               />
             </div>

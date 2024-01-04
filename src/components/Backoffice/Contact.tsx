@@ -5,7 +5,7 @@ import Link from "next/link";
 const Contact = () => {
   return (
     <div className="fixed bottom-8 right-8">
-      <div className="w-10 h-10 animate-bounce">
+      <div className="w-10 h-10">
         <Link
           href={`https://web.whatsapp.com/send/?phone=%2B6287759205806&text=Hello%2C%20I%20would%20like%20to%20ask&type=phone_number&app_absent=0
 `}

@@ -31,9 +31,8 @@ const BlogMetadata = (props?: Option) => {
       ),
     onSuccess: () => {
       return Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["blogSearch"] }),
-        queryClient.invalidateQueries({ queryKey: ["blog"] }),
         queryClient.invalidateQueries({ queryKey: ["blogs"] }),
+        queryClient.invalidateQueries({ queryKey: ["blogSearch"] }),
       ]);
     },
   });
@@ -102,7 +101,7 @@ const BlogMetadata = (props?: Option) => {
             <div className="flex flex-col gap-2">
               <label>Description</label>
               <input
-                placeholder="Title"
+                placeholder="Description"
                 autoComplete="off"
                 type="text"
                 {...field}

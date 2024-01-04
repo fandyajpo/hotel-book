@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 const Back = () => {
   const router = useRouter();
   return (
-    <div className="w-full bg-white border border-gray-300 rounded-full h-14 flex items-center">
+    <div className="w-full bg-white border border-gray-300 rounded-full h-16 flex items-center">
       <button
         type="button"
         className="flex items-center px-4 hover:underline"
