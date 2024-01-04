@@ -108,4 +108,4 @@ export type BookingT = {
 export type BlogT = {
   slug: string;
   html: string;
-};
+} & ArangoDataT;

@@ -2,7 +2,10 @@
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { Base64UploadAdapter } from "@ckeditor/ckeditor5-upload/src/";
+import { useMutation } from "@tanstack/react-query";
+import { client } from "@/lib/axios";
+import { rstr } from "@/lib/listFunc";
+import { LoadingSVG } from "@/components/Icons";
 
 interface Props {
   value: string;
@@ -10,10 +13,24 @@ interface Props {
 }
 
 const BlogEditor = (props: Props) => {
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["createBlog"],
+    mutationFn: () =>
+      client.post(
+        "api/blog",
+        { html: props.value, slug: rstr(10) },
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ),
+  });
   return (
     <div className="App">
-      <h2>Using CKEditor&nbsp;5 build in React</h2>
       <CKEditor
+        disabled={isPending}
         editor={ClassicEditor}
         data={props.value}
         onReady={(editor: any) => {
@@ -30,6 +47,18 @@ const BlogEditor = (props: Props) => {
           console.log("Focus.", editor);
         }}
       />
+
+      <div className="w-full bg-white h-12 flex items-center px-4">
+        {isPending ? (
+          <LoadingSVG className="w-6 h-6 text-black" />
+        ) : (
+          <button onClick={() => mutate()}>
+            <p className="text-blue-500 border border-blue-500 px-8">
+              Save Blog
+            </p>
+          </button>
+        )}
+      </div>
     </div>
   );
 };

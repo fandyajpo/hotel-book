@@ -49,6 +49,9 @@ function Test(props: Props) {
 
   return (
     <div className="relative">
+      <p className="mb-2">
+        You cannot delete the initial image as it serves as the main image
+      </p>
       {isPending ? (
         <div className="w-full h-full bg-white/70 absolute z-20 flex justify-center items-center">
           <LoadingSVG className="text-black w-12 h-12" />

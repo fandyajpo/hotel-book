@@ -1,17 +1,11 @@
-"use client";
-import dynamic from "next/dynamic";
-import { useState } from "react";
-const BlogEditor = dynamic(
-  () => import("@/components/Backoffice/Blog/Editor"),
-  { ssr: false }
-);
-
+import EditorComponent from "@/components/Backoffice/Blog/EditorComponent";
+import BlogTable from "@/components/Backoffice/Blog/Table";
 const Blog = () => {
-  const [blog, setBlog] = useState<any>("");
   return (
-    <div>
-      <BlogEditor value={blog} onChange={setBlog} />
-    </div>
+    <>
+      <EditorComponent method="CREATE" />
+      <BlogTable />
+    </>
   );
 };
 

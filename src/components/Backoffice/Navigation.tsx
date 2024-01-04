@@ -6,11 +6,11 @@ import Link from "next/link";
 import { useStore } from "@/store";
 import { useSelectedLayoutSegment } from "next/navigation";
 const url = [
-  { name: "Hotel", url: "/bo/hotel?page=1" },
-  { name: "Location", url: "/bo/location?page=1" },
-  { name: "Category", url: "/bo/category?page=1" },
-  { name: "Booking", url: "/bo/booking?checkIn=&checkOut=&page=1" },
-  { name: "Blog (soon)", url: "/bo/blog?page=1" },
+  { name: "Hotel", url: "/bo/hotel?page=1&limit=10" },
+  { name: "Location", url: "/bo/location?page=1&limit=10" },
+  { name: "Category", url: "/bo/category?page=1&limit=10" },
+  { name: "Booking", url: "/bo/booking?checkIn=&checkOut=&page=1&limit=10" },
+  { name: "Blog", url: "/bo/blog?page=1&limit=10" },
 ];
 
 const Navigation = () => {
