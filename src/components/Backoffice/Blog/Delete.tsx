@@ -21,7 +21,7 @@ const BlogDelete = () => {
     <div className="h-14 bg-red-500 w-full flex justify-between px-6 items-center">
       <p className="text-white">Delete Blog</p>
       {isPending ? (
-        <LoadingSVG className="w-6 h-6" />
+        <LoadingSVG className="w-6 h-6 text-white" />
       ) : approve ? (
         <div className="gap-2 flex">
           <button
