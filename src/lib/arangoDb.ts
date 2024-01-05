@@ -1,3 +1,4 @@
+"use server";
 import { Database, aql } from "arangojs";
 
 const getConnection = () => {
