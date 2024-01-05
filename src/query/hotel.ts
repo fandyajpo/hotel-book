@@ -1,5 +1,5 @@
 "use server";
-import { cacheConnection, getCollection, getView } from "@/lib/arangoDb";
+import { getConnection, getCollection, getView } from "@/lib/arangoDb";
 import { ImageKitFileT } from "@/lib/imageKit";
 import { CurrencyT, StatusT } from "@/types";
 
@@ -8,7 +8,7 @@ export const listHotel = async (
   limit: number,
   status: StatusT
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("hotel", db);
     const resx = await db.query({
@@ -45,7 +45,7 @@ export const listHotel = async (
 };
 
 export const hotelById = async (key: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("hotel", db);
     const resx = await db.query({
@@ -75,7 +75,7 @@ export const hotelById = async (key: string) => {
 };
 
 export const hotelBySlug = async (slug: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("hotel", db);
     const resx = await db.query({
@@ -110,7 +110,7 @@ export const hotelByLocation = async (
   location: string,
   status: string
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("hotel", db);
     const resx = await db.query({
@@ -162,7 +162,7 @@ export const createHotel = async (
   currency: CurrencyT,
   slug: string
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("hotel", db);
     await db.query({
@@ -204,7 +204,7 @@ export const updateHotel = async (
   currency: CurrencyT,
   slug: string
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("hotel", db);
     await db.query({
@@ -242,7 +242,7 @@ export const updateHotel = async (
 };
 
 export const updateHotelMedia = async (key: string, image: ImageKitFileT) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("hotel", db);
     await db.query({
@@ -264,7 +264,7 @@ export const updateHotelMedia = async (key: string, image: ImageKitFileT) => {
 };
 
 export const delHotel = async (key: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("hotel", db);
     const resx = await db.query({
@@ -288,7 +288,7 @@ export const delHotel = async (key: string) => {
 };
 
 export const searchhotel = async (search: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getView("hotelsearch", db);
     const resx = await db.query({
@@ -316,7 +316,7 @@ export const updateHotelMediaPosition = async (
   key: string,
   image: Array<ImageKitFileT>
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("hotel", db);
     await db.query({
@@ -342,7 +342,7 @@ export const updateHotelMediaPosition = async (
 };
 
 export const delHotelImage = async (key: string, index: number) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("hotel", db);
     await db.query({

@@ -1,6 +1,6 @@
 "use server";
 
-import { cacheConnection, getCollection } from "@/lib/arangoDb";
+import { getConnection, getCollection } from "@/lib/arangoDb";
 import { BookingT, RoomT, SecureFormT, StatusT } from "@/types";
 
 export const listBooking = async (
@@ -9,7 +9,7 @@ export const listBooking = async (
   checkIn: string,
   checkOut: string
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("booking", db);
     const resx = await db.query({
@@ -59,7 +59,7 @@ export const listBooking = async (
 };
 
 export const createBooking = async (data: BookingT) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("booking", db);
     await db.query({
@@ -100,7 +100,7 @@ export const createBooking = async (data: BookingT) => {
 };
 
 export const bookingById = async (key: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("booking", db);
     const resx = await db.query({
@@ -123,7 +123,7 @@ export const updateBookingStatus = async (
   roomId: string,
   customer: SecureFormT
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   const booking = db.collection("booking");
   const room = db.collection("room");
   const trx = await db.beginTransaction({
@@ -164,7 +164,7 @@ export const updateBookingStatus = async (
 };
 
 export const delBook = async (key: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("booking", db);
     const resx = await db.query({

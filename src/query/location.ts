@@ -1,9 +1,9 @@
 "use server";
 
-import { cacheConnection, getCollection, getView } from "@/lib/arangoDb";
+import { getConnection, getCollection, getView } from "@/lib/arangoDb";
 
 export const listLocation = async (page: number, limit: number) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("location", db);
     const resx = await db.query({
@@ -37,7 +37,7 @@ export const createLocation = async (
   slug: string,
   description: string
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("location", db);
     await db.query({
@@ -59,7 +59,7 @@ export const updateLocation = async (
   slug: string,
   description: string
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("location", db);
     await db.query({
@@ -83,7 +83,7 @@ export const updateLocation = async (
 };
 
 export const delLocation = async (key: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("location", db);
     const resx = await db.query({
@@ -106,7 +106,7 @@ export const delLocation = async (key: string) => {
 };
 
 export const locationById = async (key: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("location", db);
     const resx = await db.query({
@@ -125,7 +125,7 @@ export const locationById = async (key: string) => {
 };
 
 export const locationBySlug = async (slug: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("location", db);
     const resx = await db.query({
@@ -144,7 +144,7 @@ export const locationBySlug = async (slug: string) => {
 };
 
 export const searchLocation = async (search: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getView("locationsearch", db);
     const resx = await db.query({

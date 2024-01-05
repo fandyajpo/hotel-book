@@ -1,5 +1,5 @@
 "use server";
-import { cacheConnection, getCollection } from "@/lib/arangoDb";
+import { getConnection, getCollection } from "@/lib/arangoDb";
 import { ImageKitFileT } from "@/lib/imageKit";
 import { StatusT } from "@/types";
 
@@ -9,7 +9,7 @@ export const listRoom = async (
   hotel: string,
   status: string
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("room", db);
     const resx = await db.query({
@@ -48,7 +48,7 @@ export const listRoom = async (
 };
 
 export const roomByHotel = async (hotel: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("hotel", db);
     const resx = await db.query({
@@ -74,7 +74,7 @@ export const roomByHotel = async (hotel: string) => {
 };
 
 export const roomById = async (key: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("room", db);
     const resx = await db.query({
@@ -106,7 +106,7 @@ export const createRoom = async (
   bath: number,
   price: number
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("room", db);
     await db.query({
@@ -145,7 +145,7 @@ export const updateRoom = async (
   description: string,
   price: number
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("room", db);
     await db.query({
@@ -177,7 +177,7 @@ export const updateRoom = async (
 };
 
 export const roomEndSession = async (key: string, status: StatusT) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("room", db);
     await db.query({
@@ -202,7 +202,7 @@ export const roomEndSession = async (key: string, status: StatusT) => {
 };
 
 export const delRoom = async (key: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("room", db);
     const resx = await db.query({
@@ -226,7 +226,7 @@ export const delRoom = async (key: string) => {
 };
 
 export const updateRoomMedia = async (key: string, image: ImageKitFileT) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("room", db);
     await db.query({
@@ -253,7 +253,7 @@ export const updateHotelRoomSummary = async (
   bath: number,
   bed: number
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   const transaction = await db.beginTransaction({
     read: ["room"],
     write: ["room", "hotel"],
@@ -321,7 +321,7 @@ export const updateRoomMediaPosition = async (
   key: string,
   image: Array<ImageKitFileT>
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("room", db);
     await db.query({
@@ -347,7 +347,7 @@ export const updateRoomMediaPosition = async (
 };
 
 export const delRoomImage = async (key: string, index: number) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("room", db);
     await db.query({

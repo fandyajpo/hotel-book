@@ -1,9 +1,9 @@
 "use server";
 
-import { cacheConnection, getCollection, getView } from "@/lib/arangoDb";
+import { getConnection, getCollection, getView } from "@/lib/arangoDb";
 
 export const listCategory = async (page: number, limit: number) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("category", db);
     const resx = await db.query({
@@ -35,7 +35,7 @@ export const listCategory = async (page: number, limit: number) => {
 };
 
 export const createCategory = async (name: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("category", db);
     await db.query({
@@ -51,7 +51,7 @@ export const createCategory = async (name: string) => {
 };
 
 export const updateCategory = async (key: string, name: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("category", db);
     await db.query({
@@ -73,7 +73,7 @@ export const updateCategory = async (key: string, name: string) => {
 };
 
 export const delCat = async (key: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("category", db);
     const resx = await db.query({
@@ -96,7 +96,7 @@ export const delCat = async (key: string) => {
 };
 
 export const categoryById = async (key: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("category", db);
     const resx = await db.query({
@@ -115,7 +115,7 @@ export const categoryById = async (key: string) => {
 };
 
 export const searchCategory = async (search: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getView("categorysearch", db);
     const resx = await db.query({

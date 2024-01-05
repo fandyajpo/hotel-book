@@ -17,8 +17,6 @@ const getConnection = () => {
   }
 };
 
-const cacheConnection = (): Database => getConnection();
-
 const getCollection = async (cName: string, db: Database) => {
   try {
     const collections = await db.collections();
@@ -26,7 +24,6 @@ const getCollection = async (cName: string, db: Database) => {
       return db.collection(cName);
     }
     return null;
-    return db.createCollection(cName);
   } catch (error) {
     throw error;
   }
@@ -45,7 +42,7 @@ const getView = async (cName: string, db: Database) => {
 };
 
 const createPing = async (message: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("ping", db);
     const resx = await db.query({
@@ -62,4 +59,4 @@ const createPing = async (message: string) => {
     db.close();
   }
 };
-export { getView, getCollection, cacheConnection, aql, createPing };
+export { getView, getCollection, aql, createPing, getConnection };

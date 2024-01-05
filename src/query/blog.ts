@@ -1,9 +1,9 @@
 "use server";
 
-import { cacheConnection, getCollection, getView } from "@/lib/arangoDb";
+import { getCollection, getView, getConnection } from "@/lib/arangoDb";
 
 export const createBlog = async (slug: string, html: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("blog", db);
     const blog = await db.query({
@@ -24,7 +24,7 @@ export const createBlog = async (slug: string, html: string) => {
 };
 
 export const blogById = async (key: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("blog", db);
     const resx = await db.query({
@@ -43,7 +43,7 @@ export const blogById = async (key: string) => {
 };
 
 export const blogBySlug = async (slug: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("blog", db);
     const resx = await db.query({
@@ -62,7 +62,7 @@ export const blogBySlug = async (slug: string) => {
 };
 
 export const listBlog = async (page: number, limit: number) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("blog", db);
     const resx = await db.query({
@@ -99,7 +99,7 @@ export const updateBlogMetadata = async (
   description: string,
   slug: string
 ) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("blog", db);
     await db.query({
@@ -129,7 +129,7 @@ export const updateBlogMetadata = async (
 };
 
 export const updateBlog = async (key: string, html: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("blog", db);
     await db.query({
@@ -155,7 +155,7 @@ export const updateBlog = async (key: string, html: string) => {
 };
 
 export const delBlog = async (key: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getCollection("blog", db);
     const resx = await db.query({
@@ -178,7 +178,7 @@ export const delBlog = async (key: string) => {
 };
 
 export const searchBlog = async (search: string) => {
-  const db = cacheConnection();
+  const db = getConnection();
   try {
     await getView("blogsearch", db);
     const resx = await db.query({
