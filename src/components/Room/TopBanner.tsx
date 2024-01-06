@@ -10,19 +10,19 @@ const TopBanner = (props: Props) => {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full h-[500px]">
-        <div className="col-span-2 row-span-2 w-full h-full rounded bg-blue-500">
+        <div className="col-span-2 row-span-2 w-full h-full rounded">
           <ImageLoader imageSource={props?.data?.image?.[0]?.url} />
         </div>
-        <div className="rounded bg-blue-500">
+        <div className="rounded">
           <ImageLoader imageSource={props?.data?.image?.[1]?.url} />
         </div>
-        <div className="rounded bg-blue-500">
+        <div className="rounded">
           <ImageLoader imageSource={props?.data?.image?.[2]?.url} />
         </div>
-        <div className="rounded bg-blue-500">
+        <div className="rounded">
           <ImageLoader imageSource={props?.data?.image?.[3]?.url} />
         </div>
-        <div className="rounded bg-blue-500">
+        <div className="rounded">
           <ImageLoader
             imageSource={
               props?.data?.image && props?.data?.image?.length > 3
