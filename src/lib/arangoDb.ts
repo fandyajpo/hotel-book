@@ -50,9 +50,7 @@ const createPing = async (message: string) => {
       query: 'INSERT { "ping": @message } in ping RETURN NEW',
       bindVars: { message },
     });
-
     const result = await resx.all();
-
     return result;
   } catch (error) {
     throw error;
