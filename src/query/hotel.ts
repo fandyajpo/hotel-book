@@ -1,7 +1,7 @@
 "use server";
 import { getConnection, getCollection, getView } from "@/lib/arangoDb";
 import { ImageKitFileT } from "@/lib/imageKit";
-import { CurrencyT, StatusT } from "@/types";
+import { CurrencyT, HotelContatctT, StatusT } from "@/types";
 
 export const listHotel = async (
   page: number,
@@ -202,7 +202,8 @@ export const updateHotel = async (
   status: string,
   description: string,
   currency: CurrencyT,
-  slug: string
+  slug: string,
+  contact: HotelContatctT
 ) => {
   const db = getConnection();
   try {
@@ -218,6 +219,7 @@ export const updateHotel = async (
         description: @description,
         currency: @currency,
         slug: @slug,
+        contact: @contact,
       }
       IN @@coll RETURN NEW`,
       bindVars: {
@@ -230,6 +232,7 @@ export const updateHotel = async (
         description,
         currency,
         slug,
+        contact,
       },
     });
 

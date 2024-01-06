@@ -38,10 +38,16 @@ export type Facility = {
 export type HotelContatctT = {
   instagram?: string;
   instagramUrl?: string;
-  facebook: string;
-  facebookUrl: string;
+  facebook?: string;
+  facebookUrl?: string;
   whatsapp?: string;
-  whatsappUrl?: string;
+  whatsappName?: string;
+  youtube?: string;
+  youtubeUrl?: string;
+  tiktok?: string;
+  tiktokUrl?: string;
+  twitter?: string;
+  twitterUrl?: string;
 };
 
 export type HotelT = {

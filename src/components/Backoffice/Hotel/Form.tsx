@@ -1,5 +1,6 @@
 "use client";
 import { client } from "@/lib/axios";
+import Link from "next/link";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm, Controller } from "react-hook-form";
 import { CategoryT, StatusT, HotelT, CurrencyT, LocationT } from "@/types";
@@ -9,7 +10,13 @@ import HotelMedia from "./Media";
 import Title from "../../Arch/Title";
 import { queryClient } from "@/provider/TanstackQuery";
 import AsyncSelect from "react-select/async";
-import { LoadingSVG } from "@/components/Icons";
+import {
+  LoadingSVG,
+  FacebookSVG,
+  InstagramSVG,
+  YoutubeSVG,
+  WhatsappSVG,
+} from "@/components/Icons";
 import { useRouter } from "next/navigation";
 import { slug } from "@/lib/listFunc";
 
@@ -258,6 +265,122 @@ const HotelForm = (props?: Option) => {
             </div>
           )}
         />
+        {props?.method === "CREATE" ? (
+          <p>
+            Social Media is not required, you can skip and create the hotel
+            profile
+          </p>
+        ) : null}
+        <Title title="Social Media" />
+        <hr className="my-2 border-black" />
+        <Controller
+          control={control}
+          name="contact.instagram"
+          render={({ field }) => (
+            <div className="flex flex-col gap-2">
+              <label className="flex items-center gap-2">
+                <InstagramSVG className="w-6 h-6" />
+                Instagram
+              </label>
+              <input placeholder="Instagram Name" type="text" {...field} />
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="contact.instagramUrl"
+          render={({ field }) => (
+            <div className="flex flex-col gap-2">
+              <input placeholder="Instagram Url" type="text" {...field} />
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="contact.facebook"
+          render={({ field }) => (
+            <div className="flex flex-col gap-2">
+              <label className="flex items-center gap-2">
+                <FacebookSVG className="w-6 h-6" />
+                Facebook
+              </label>
+              <input placeholder="Facebook Name" type="text" {...field} />
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="contact.facebookUrl"
+          render={({ field }) => (
+            <div className="flex flex-col gap-2">
+              <input placeholder="Facebook Url" type="text" {...field} />
+            </div>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="contact.youtube"
+          render={({ field }) => (
+            <div className="flex flex-col gap-2">
+              <label className="flex items-center gap-2">
+                <YoutubeSVG className="w-6 h-6" />
+                Youtube
+              </label>
+              <input placeholder="Youtube Name" type="text" {...field} />
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="contact.youtubeUrl"
+          render={({ field }) => (
+            <div className="flex flex-col gap-2">
+              <input placeholder="Youtube Url" type="text" {...field} />
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="contact.whatsappName"
+          render={({ field }) => (
+            <div className="flex flex-col gap-2">
+              <label className="flex items-center gap-2">
+                <WhatsappSVG className="w-6 h-6" />
+                Whatsapp
+              </label>
+              <input placeholder="Whatsapp Name" type="text" {...field} />
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="contact.whatsapp"
+          render={({ field }) => (
+            <div className="flex flex-col gap-2">
+              <label className="flex items-center gap-2">
+                Whatsapp | Example : 628129421
+              </label>
+              <div className="flex w-full items-center">
+                <input
+                  className="w-full"
+                  placeholder="Whatsapp Number"
+                  type="text"
+                  {...field}
+                />
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-24 text-center hover:text-blue-500 hover:underline"
+                  href={`https://web.whatsapp.com/send/?phone=%2B${props?.data?.contact?.whatsapp}&text=Hello%2C%20I%20would%20like%20to%20ask&type=phone_number&app_absent=0`}
+                >
+                  Test
+                </Link>
+              </div>
+            </div>
+          )}
+        />
+
         {pendingCreate || pendingUpdate ? (
           <div className="pt-4">
             <LoadingSVG className="w-6 h-6" />

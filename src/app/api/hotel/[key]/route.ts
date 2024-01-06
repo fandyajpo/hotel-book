@@ -30,7 +30,8 @@ export async function PATCH(
       body?.status ?? "DRAFT",
       body?.description ?? "",
       body?.currency ?? "IDR",
-      body?.slug
+      body?.slug,
+      body?.contact
     );
 
     return NextResponse.json(update);
