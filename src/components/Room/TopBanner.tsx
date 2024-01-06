@@ -1,7 +1,6 @@
 "use client";
 import { RoomT } from "@/types";
 import ImageLoader from "../Layout/ImageLoader";
-import { documentById } from "@/lib/listFunc";
 interface Props {
   data: RoomT;
 }

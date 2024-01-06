@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/legacy/image";
 import { useState, memo } from "react";
 import { CameraSVG, LoadingSVG } from "../Icons/index";
