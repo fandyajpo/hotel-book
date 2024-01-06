@@ -107,14 +107,14 @@ const ReserveForm = () => {
                   control: (base, state) => ({
                     ...base,
                     background: "rgb(229, 231, 235)",
-                    // match with the menu
-                    borderRadius: state.isFocused ? 5 : 5,
-                    // Overwrittes the different states of border
-                    borderColor: state.isFocused
+
+                    borderRadius: state?.isFocused ? 5 : 5,
+
+                    borderColor: state?.isFocused
                       ? "rgb(107, 114, 128)"
                       : "rgb(107, 114, 128)",
-                    // Removes weird border around container
-                    boxShadow: state.isFocused ? null : null,
+
+                    boxShadow: state?.isFocused ? null : null,
                   }),
                   menuPortal: (provided) => ({
                     ...provided,
