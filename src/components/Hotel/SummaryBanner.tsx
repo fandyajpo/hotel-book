@@ -5,7 +5,7 @@ interface Props {
 }
 const SummaryBanner = (props: Props) => {
   return (
-    <div className="w-full h-24 border flex items-center justify-evenly">
+    <div className="w-full h-24  flex items-center justify-evenly">
       <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
         <svg
           className="h-4 w-4 text-indigo-700"

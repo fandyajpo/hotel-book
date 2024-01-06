@@ -31,11 +31,7 @@ const BookingHotel = () => {
     <div className="space-y-2">
       <Header title="Booking List" total={data?.data?.total} />
       <DateFilter />
-      <p className="bg-white p-4">
-        <span className="text-red-500">Note </span> : {""}
-        If the table color is grayscale, it means the room cannot be updated
-        until it becomes available
-      </p>
+
       <table className="table-auto border w-full bg-white/90">
         <thead>
           <tr className="border">

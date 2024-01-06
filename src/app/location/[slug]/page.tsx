@@ -1,6 +1,5 @@
-import { Params } from "@/types";
+import { LocationT, Params } from "@/types";
 import RoomList from "@/components/Hotel/HotelList";
-import Layer from "@/components/Layout/Layer";
 import Banner from "@/components/Hotel/Banner";
 import Back from "@/components/Layout/Back";
 
@@ -21,16 +20,14 @@ const HotelSlug = async (
     }
   );
 
-  const result = await location.json();
+  const result: LocationT = await location?.json();
 
   return (
-    <div className="flex justify-center pb-44 ">
-      <Layer isMiddle>
-        <Back />
-        <Banner text={`Hotels in ${result?.name}`} />
-        <RoomList location={result} page={Number(props?.searchParams?.page)} />
-      </Layer>
-    </div>
+    <>
+      <Back title={result?.name} />
+      <Banner text={`Hotels in ${result?.name}`} />
+      <RoomList location={result} page={Number(props?.searchParams?.page)} />
+    </>
   );
 };
 

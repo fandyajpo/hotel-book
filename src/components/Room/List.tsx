@@ -8,6 +8,7 @@ import Paging from "../Layout/Pagination";
 import { LoadingSVG } from "../Icons";
 import Modal from "../Arch/Modal";
 import SecureAlert from "./SecureAlert";
+import Layer from "../Layout/Layer";
 interface Props {
   hotel: HotelT;
 }
@@ -36,12 +37,14 @@ const RoomList = (props: Props) => {
         <LoadingSVG className="w-10 h-10" />
       ) : (
         data?.data?.data?.map?.((a: RoomT) => (
-          <>
+          <div key={a._key}>
             <Modal id={a._key}>
-              <SecureAlert room={a} />
+              <Layer>
+                <SecureAlert room={a} />
+              </Layer>
             </Modal>
             <RoomCard key={a._key} data={a} />
-          </>
+          </div>
         ))
       )}
 

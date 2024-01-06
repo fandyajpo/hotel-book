@@ -18,13 +18,13 @@
     "@react-spring/parallax": "^9.7.3",
     "@react-spring/web": "^9.7.3",
     "@tanstack/react-query": "^5.14.1",
-    "@types/react-js-pagination": "^3.0.7",
     "arangojs": "^8.6.0",
     "embla-carousel-autoplay": "^8.0.0-rc15",
     "embla-carousel-react": "^8.0.0-rc15",
     "firebase": "^10.7.1",
     "imagekit": "^4.1.4",
-    "next": "14.0.3",
+    "next": "14.0.4",
+    "preact": "^10.19.3",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.49.2",
@@ -36,14 +36,15 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
-    "@types/node": "^20",
+    "@types/react-js-pagination": "^3.0.7",
+    "@types/node": "^20.10.6",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",
     "postcss": "^8",
-    "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.3.3"
   }
 }

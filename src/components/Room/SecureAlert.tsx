@@ -6,7 +6,8 @@ import { documentById } from "@/lib/listFunc";
 import { useMutation } from "@tanstack/react-query";
 import { client } from "@/lib/axios";
 import { LoadingSVG } from "../Icons";
-
+import TopBanner from "./TopBanner";
+import { ImageKitFileT } from "@/lib/imageKit";
 interface Props {
   room: RoomT;
 }
@@ -49,7 +50,10 @@ const SecureAlert = (props: Props) => {
   return (
     <div className="p-4">
       <form className="flex flex-col w-full space-y-2" onSubmit={onSubmit}>
-        <p className="font-semibold">{props.room.name}</p>
+        <p className="font-semibold">{props?.room?.name}</p>
+        <TopBanner data={props.room} />
+        <p>{props?.room?.description}</p>
+        <p className="font-semibold text-xl underline">Booking Room Form</p>
         <Controller
           rules={{
             required: true,
@@ -175,7 +179,7 @@ const SecureAlert = (props: Props) => {
             className="bg-blue-500 p-1 text-white w-full rounded"
             type="submit"
           >
-            {isPending ? <LoadingSVG className="w-6 h-6" /> : "Secure Now"}
+            {isPending ? <LoadingSVG className="w-6 h-6" /> : "Book Now"}
           </button>
         </div>
       </form>

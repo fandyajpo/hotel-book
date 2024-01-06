@@ -18,7 +18,7 @@ const HotelSlug = async (
   return (
     <div className="flex justify-center pb-14 ">
       <Layer isMiddle>
-        <Back />
+        <Back title={hotel?.name} />
         <Banner text={`in ${hotel?.name}`} />
 
         <TopBanner data={hotel} />

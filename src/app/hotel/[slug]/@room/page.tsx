@@ -14,7 +14,6 @@ const Room = async (
   }>
 ) => {
   const hotel: HotelT = await hotelBySlug(props.params.slug);
-
   return (
     <div className="flex justify-center pb-44 ">
       <Layer isMiddle>
