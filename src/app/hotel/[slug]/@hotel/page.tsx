@@ -14,13 +14,12 @@ const HotelSlug = async (
     };
   }>
 ) => {
-  const hotel: HotelT = await hotelBySlug(props.params.slug);
+  const hotel: HotelT = await hotelBySlug(props.params?.slug);
   return (
     <div className="flex justify-center pb-14 ">
       <Layer isMiddle>
         <Back title={hotel?.name} />
         <Banner text={`in ${hotel?.name}`} />
-
         <TopBanner data={hotel} />
       </Layer>
     </div>

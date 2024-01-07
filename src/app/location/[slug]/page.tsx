@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import { LocationT, Params } from "@/types";
 import RoomList from "@/components/Hotel/HotelList";
 import Banner from "@/components/Hotel/Banner";

@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import { blogBySlug } from "@/query/blog";
 import { BlogT, Params } from "@/types";
 import Layer from "@/components/Layout/Layer";
