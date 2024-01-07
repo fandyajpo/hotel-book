@@ -48,10 +48,10 @@ const SecureAlert = (props: Props) => {
   });
 
   return (
-    <div className="p-4">
+    <div className="p-4 w-full flex-none">
       <form className="flex flex-col w-full space-y-2" onSubmit={onSubmit}>
         <p className="font-semibold">{props?.room?.name}</p>
-        <TopBanner data={props.room} />
+        {/* <TopBanner data={props.room} /> */}
         <p>{props?.room?.description}</p>
         <p className="font-semibold text-xl underline">Booking Room Form</p>
         <Controller
