@@ -6,6 +6,7 @@ import Testimo from "@/components/Landing/Testimo";
 export default async function Home() {
   return (
     <main>
+      <></>
       <Background />
       <WhyUs />
       <Cta />
