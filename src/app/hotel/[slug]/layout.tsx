@@ -5,17 +5,23 @@ import { Metadata, ResolvingMetadata } from "next/types";
 import Modal from "@/components/Arch/Modal";
 import { Suspense } from "react";
 import Loading from "./loading";
+import { unstable_cache } from "next/cache";
 interface Props {
   children: React.ReactNode;
   hotel: React.ReactNode;
   room: React.ReactNode;
 }
 
+const getCachedHotel = unstable_cache(
+  async (name) => hotelBySlug(name),
+  ["my-app-hotel"]
+);
+
 export async function generateMetadata(
   { params }: SlugMeta,
   _parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const hotel: HotelT = await hotelBySlug(params?.slug as string);
+  const hotel: HotelT = await getCachedHotel(params?.slug as string);
 
   return {
     title: hotel?.name || "Hotel",
@@ -26,7 +32,7 @@ export async function generateMetadata(
     },
     twitter: {
       title: hotel?.name || "Hotel",
-      description: hotel.description || "No Description",
+      description: hotel?.description || "No Description",
     },
   };
 }
@@ -60,9 +66,9 @@ const Layout = (props: Props) => {
           </Link>
         </div>
       </Modal>
-      <Suspense fallback={<Loading />}>{props.hotel}</Suspense>
+      {props.hotel}
       {props.children}
-      <Suspense fallback={<Loading />}>{props.room}</Suspense>
+      {props.room}
     </>
   );
 };

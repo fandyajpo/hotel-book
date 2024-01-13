@@ -1,8 +1,14 @@
-export const runtime = "edge";
-import { LocationT, Params } from "@/types";
+import { Params } from "@/types";
 import RoomList from "@/components/Hotel/HotelList";
 import Banner from "@/components/Hotel/Banner";
 import Back from "@/components/Layout/Back";
+import { locationById } from "@/server/location";
+import { unstable_cache } from "next/cache";
+
+const getCachedLocation = unstable_cache(
+  async (name) => locationById(name),
+  ["my-app-location"]
+);
 
 const HotelSlug = async (
   props: Params<{
@@ -14,20 +20,13 @@ const HotelSlug = async (
     };
   }>
 ) => {
-  const location = await fetch(
-    `${process.env.NEXT_PUBLIC_URL}api/location/search/${props?.params?.slug}`,
-    {
-      method: "GET",
-    }
-  );
-
-  const result: LocationT = await location?.json();
+  const location = await getCachedLocation(props.params?.slug);
 
   return (
     <>
-      <Back title={result?.name} />
-      <Banner text={`Hotels in ${result?.name}`} />
-      <RoomList location={result} page={Number(props?.searchParams?.page)} />
+      <Back title={location?.name} />
+      <Banner text={`Hotels in ${location?.name}`} />
+      <RoomList location={location} page={Number(props?.searchParams?.page)} />
     </>
   );
 };

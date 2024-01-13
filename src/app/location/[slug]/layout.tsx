@@ -1,36 +1,33 @@
+import { locationById } from "@/server/location";
 import { LocationT, SlugMeta } from "@/types";
+import { unstable_cache } from "next/cache";
 import { Metadata, ResolvingMetadata } from "next/types";
-import { Suspense } from "react";
-import Loading from "./loading";
+
+const getCachedLocation = unstable_cache(
+  async (name) => locationById(name),
+  ["my-app-location"]
+);
 
 export async function generateMetadata(
   { params }: SlugMeta,
-  parent: ResolvingMetadata
+  _parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const location = await fetch(
-    `${process.env.NEXT_PUBLIC_URL}api/location/search/${params?.slug}`,
-    {
-      method: "GET",
-    }
-  );
-
-  const result: LocationT = await location.json();
-
+  const location = await getCachedLocation(params?.slug);
   return {
-    title: `${result?.name} | EastLandBali` || "Location",
-    description: result?.description || "No Description",
+    title: `${location?.name} | EastLandBali` || "Location",
+    description: location?.description || "No Description",
     openGraph: {
-      title: `${result?.name} | EastLandBali` || "Location",
-      description: result?.description || "No Description",
+      title: `${location?.name} | EastLandBali` || "Location",
+      description: location?.description || "No Description",
     },
     twitter: {
-      title: `${result?.name} | EastLandBali` || "Location",
-      description: result?.description || "No Description",
+      title: `${location?.name} | EastLandBali` || "Location",
+      description: location?.description || "No Description",
     },
   };
 }
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  return <Suspense fallback={<Loading />}>{children}</Suspense>;
+  return <>{children}</>;
 };
 
 export default Layout;

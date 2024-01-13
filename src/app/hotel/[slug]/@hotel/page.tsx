@@ -4,6 +4,13 @@ import Banner from "@/components/Hotel/Banner";
 import TopBanner from "@/components/Hotel/TopBanner";
 import Layer from "@/components/Layout/Layer";
 import Back from "@/components/Layout/Back";
+import { unstable_cache } from "next/cache";
+
+const getCachedHotel = unstable_cache(
+  async (name) => hotelBySlug(name),
+  ["my-app-hotel"]
+);
+
 const HotelSlug = async (
   props: Params<{
     params: {
@@ -14,7 +21,7 @@ const HotelSlug = async (
     };
   }>
 ) => {
-  const hotel: HotelT = await hotelBySlug(props.params?.slug);
+  const hotel: HotelT = await getCachedHotel(props?.params?.slug);
   return (
     <div className="flex justify-center pb-14 ">
       <Layer isMiddle>
