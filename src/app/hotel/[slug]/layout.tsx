@@ -3,6 +3,8 @@ import Link from "next/link";
 import { hotelBySlug } from "@/query/hotel";
 import { Metadata, ResolvingMetadata } from "next/types";
 import Modal from "@/components/Arch/Modal";
+import { Suspense } from "react";
+import Loading from "./loading";
 interface Props {
   children: React.ReactNode;
   hotel: React.ReactNode;
@@ -11,7 +13,7 @@ interface Props {
 
 export async function generateMetadata(
   { params }: SlugMeta,
-  parent: ResolvingMetadata
+  _parent: ResolvingMetadata
 ): Promise<Metadata> {
   const hotel: HotelT = await hotelBySlug(params?.slug as string);
 
@@ -58,9 +60,9 @@ const Layout = (props: Props) => {
           </Link>
         </div>
       </Modal>
-      {props.hotel}
+      <Suspense fallback={<Loading />}>{props.hotel}</Suspense>
       {props.children}
-      {props.room}
+      <Suspense fallback={<Loading />}>{props.room}</Suspense>
     </>
   );
 };

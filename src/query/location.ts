@@ -13,13 +13,11 @@ export const listLocation = async (page: number, limit: number) => {
           LIMIT ${page}, ${limit}
         RETURN p
       )
-
       LET total = (
         FOR p IN @@coll
           COLLECT WITH COUNT INTO length
         return length
       )
-
       RETURN { total, data }`,
       bindVars: { "@coll": "location" },
     });

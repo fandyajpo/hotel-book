@@ -14,8 +14,6 @@ export const listBooking = async (
     await getCollection("booking", db);
     const resx = await db.query({
       query: `
-
-      
       LET data = (
         FOR p IN @@coll
         FILTER !(@checkIn && @checkOut) || (p.checkIn >= DATE_ISO8601(@checkIn) && p.checkOut <= DATE_ISO8601(@checkOut))
@@ -25,13 +23,11 @@ export const listBooking = async (
           FILTER c._key == p.room
           RETURN c
         )
-
         LET hot = (
           FOR h IN hotel
           FILTER h._key == p.hotel
           RETURN h
         )
-
         LIMIT ${page}, ${limit}
         RETURN MERGE(p, {room:FIRST(roo), hotel:FIRST(hot)})
       )

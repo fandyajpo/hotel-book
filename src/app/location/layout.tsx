@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex justify-center pb-44">
-      <Layer isMiddle>{children} </Layer>
+      <Layer isMiddle>{children}</Layer>
     </div>
   );
 };

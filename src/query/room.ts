@@ -25,7 +25,7 @@ export const listRoom = async (
               RETURN c
           )
 
-          LIMIT ${page}, ${limit}
+        LIMIT ${page}, ${limit}
         RETURN MERGE(p, { hotel: FIRST(hotel)})
       )
       LET total = (

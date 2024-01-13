@@ -13,7 +13,6 @@ const initial = {
   user: undefined,
 };
 
-// ITS VERY EASY NA USE
 export const useStore = create<BearState>((set) => ({
   ...initial,
   dispatch: (by: BearValue) => set(() => by),

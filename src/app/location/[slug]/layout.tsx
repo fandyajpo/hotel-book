@@ -1,5 +1,7 @@
 import { LocationT, SlugMeta } from "@/types";
 import { Metadata, ResolvingMetadata } from "next/types";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export async function generateMetadata(
   { params }: SlugMeta,
@@ -28,7 +30,7 @@ export async function generateMetadata(
   };
 }
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  return <>{children}</>;
+  return <Suspense fallback={<Loading />}>{children}</Suspense>;
 };
 
 export default Layout;

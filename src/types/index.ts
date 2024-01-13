@@ -15,7 +15,7 @@ export type ArangoDataT = {
 
 export type Slug = { slug?: string };
 
-export type StatusT = "AVAILABLE" | "DRAFT" | "BOOKED";
+export type StatusT = "AVAILABLE" | "DRAFT" | "BOOKED" | "INUSE";
 export type CurrencyT = "IDR" | "AUD" | "USD" | "THB" | "SGD" | "EUR" | "GBP";
 
 export type SlugMeta = {
